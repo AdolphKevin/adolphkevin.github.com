@@ -43,22 +43,25 @@ script:
   - gulp # 重新生成主题
 
 after_success:
+ - git clone https://${GITHUB_URL} .deploy_git
+ - cd .deploy_git
+ - git checkout master
+ - cp -rf ../public/* ./
+ # 必要配置文件 
+ - cp -rf ../README.md ../.gitignore ../CNAME ../index.php ./
+ # 更改 .gitignore 内容，与 source 分支的不一样，直接置空，目前没有需要过滤的 
+ - echo "" > ./.gitignore
+ - git add .
+ # 提交记录包含时间，跟上面更改时区配合 
+ - git commit -m "Travis CI Auto Builder at `date +"% Y-% m-% d % H:% M"`"
+ # 推送到主分支 
+ - git push --force --quiet "https://${REPO_TOKEN}@${GITHUB_URL}" master:master
  #  是在Travis中配置token的名称
  # - LAST_BUILD_NUMBER=68
  # - for i in $(seq 1 $LAST_BUILD_NUMBER ); do  travis logs $i --delete --force ; done
 
 after_script:
-    - git clone https://${GITHUB_URL} .deploy_git
-    - cd .deploy_git
-    - git checkout master
-    - cd ../
-    - mv .deploy_git/.git/ ./public/
-    - cd ./public
-    - git config user.name "${USER_NAME}"
-    - git config user.email "${USER_EMAIL}"
-    - git add .
-    - git commit -m "Travis CI Auto Builder"
-    - git push --force --quiet "https://${REPO_TOKEN}@${GITHUB_URL}" master:master # GH_TOKEN
+ - ./_travis.sh
 
 
 # E: Build LifeCycle
