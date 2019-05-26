@@ -78,4 +78,6 @@ theme: hexo-theme-snippet
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+ type: git
+ repository: https://github.com/AdolphKevin/adolphkevin.github.com.git
+ branch: master
