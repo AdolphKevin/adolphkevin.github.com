@@ -54,12 +54,14 @@ git config --global user.name "NaoNao"
 在磁盘中新建好存放项目的文件夹，进入文件夹点击鼠标右键，选择Git Bash即可
 
 温馨提示：使用Git托管的项目，有两种地址，Https与SSH。
-使用Https地址拉取，验证一次密码后，以后每次拉取/推送的时候不再需要验证密码。
-使用SSH地址拉取的项目，每次拉取/推送的时候都需要密码验证。
+
+**使用Https地址**拉取，验证一次密码后，以后每次拉取/推送的时候不再需要验证密码。
+
+**使用SSH地址**拉取的项目，每次拉取/推送的时候都需要密码验证。
 各位读者自己抉择。
 
 我的项目地址是 https://github.com/AdolphKevin/NaoNao.git
-```git
+```
 git clone https://github.com/AdolphKevin/NaoNao.git
 ```
 将你的项目地址替换掉我的项目地址即可
@@ -174,8 +176,8 @@ git merge develop
 执行merge后，如果有冲突，控制台会将有冲突的文件名展示出来，我们按照文件名找到对应文件，将冲突给解决掉后。
 
 打开文件我们可以看到冲突的内容，例如：
->\<<<<<<<HEAD
->hello world feature
+><<<<<<< HEAD
+>hello world feature  
 >\=======
 >hello world develop
 >\>>>>>> develop
