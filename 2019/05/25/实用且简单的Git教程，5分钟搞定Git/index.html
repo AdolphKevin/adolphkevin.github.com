@@ -1,408 +1,172 @@
-<!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="zh-CN">
+<!DOCTYPE HTML>
+<html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="闹闹吃鱼">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://AdolphKevin.github.io">
+    <!--SEO-->
 
+    <meta name="keywords" content="Git">
 
 
+    <meta name="description" content="
+俗说金三银四，大部分人都选择在这个时候找工作
+有拿完年终奖准备跳槽的，也有年前就辞职，已经休了一个长期年假的，还有刚走出校门的青涩少年们
+换了新工作，肯定要接触新项目，现在绝大多数项目都是使用...">
 
 
 
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
 
+    <!--Title-->
 
 
+<title>实用且简单的Git教程，5分钟搞定Git | 闹闹吃鱼</title>
 
 
+    <link rel="alternate" href="/atom.xml" title="闹闹吃鱼" type="application/atom+xml">
 
 
+    <link rel="icon" href="/favicon.ico">
 
+    
 
 
 
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
 
 
 
 
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link rel="stylesheet" href="/css/main.css?v=7.1.1">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.1.1',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
-    back2top: true,
-    back2top_sidebar: false,
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="俗说金三银四，大部分人都选择在这个时候找工作 有拿完年终奖准备跳槽的，也有年前就辞职，已经休了一个长期年假的，还有刚走出校门的青涩少年们 换了新工作，肯定要接触新项目，现在绝大多数项目都是使用Git进行版本控制 这篇文章，主要目的是在多人开发中让你能熟练使用Git 从实战出发，不大谈原理，只谈实际应用，省去大量的查找文档的时间 入职新公司，接触新项目，基本是不需要你自己搭建Git项目来托管cod">
-<meta name="keywords" content="Git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="实用且简单的Git教程，5分钟搞定Git">
-<meta property="og:url" content="https://AdolphKevin.github.io/2019/05/25/实用且简单的Git教程，5分钟搞定Git/index.html">
-<meta property="og:site_name" content="闹闹吃鱼">
-<meta property="og:description" content="俗说金三银四，大部分人都选择在这个时候找工作 有拿完年终奖准备跳槽的，也有年前就辞职，已经休了一个长期年假的，还有刚走出校门的青涩少年们 换了新工作，肯定要接触新项目，现在绝大多数项目都是使用Git进行版本控制 这篇文章，主要目的是在多人开发中让你能熟练使用Git 从实战出发，不大谈原理，只谈实际应用，省去大量的查找文档的时间 入职新公司，接触新项目，基本是不需要你自己搭建Git项目来托管cod">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/15072499-7f52aff5e9ee727d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/15072499-bf1cf0945c3963a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-25T07:46:34.602Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实用且简单的Git教程，5分钟搞定Git">
-<meta name="twitter:description" content="俗说金三银四，大部分人都选择在这个时候找工作 有拿完年终奖准备跳槽的，也有年前就辞职，已经休了一个长期年假的，还有刚走出校门的青涩少年们 换了新工作，肯定要接触新项目，现在绝大多数项目都是使用Git进行版本控制 这篇文章，主要目的是在多人开发中让你能熟练使用Git 从实战出发，不大谈原理，只谈实际应用，省去大量的查找文档的时间 入职新公司，接触新项目，基本是不需要你自己搭建Git项目来托管cod">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/15072499-7f52aff5e9ee727d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-
-
-
-
-
-  
-  
-  <link rel="canonical" href="https://AdolphKevin.github.io/2019/05/25/实用且简单的Git教程，5分钟搞定Git/">
-
-
-
-<script id="page.configurations">
-  CONFIG.page = {
-    sidebar: "",
-  };
-</script>
-
-  <title>实用且简单的Git教程，5分钟搞定Git | 闹闹吃鱼</title>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .motion-element,
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
-
-  .use-motion .logo,
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+    
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
 
-  
-  
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="闹闹">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://AdolphKevin.github.io">闹闹吃鱼</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="实用且简单的Git教程，5分钟搞定Git">
+            
+	            实用且简单的Git教程，5分钟搞定Git
+            
+        </h1>
+        <div class="post-meta">
     
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/Git教程/">Git教程</a>
+        </span>
     
 
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">闹闹吃鱼</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Git/">Git</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/25</span>
+        </span>
+        
+    
+</div>
+            
+            
     </div>
     
-      
-        <p class="site-subtitle">闹闹</p>
-      
-    
-    
-  </div>
-
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
-</nav>
-
-
-
-  
-
-
-
-</div>
-    </header>
-
-    
-
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://AdolphKevin.github.io/2019/05/25/实用且简单的Git教程，5分钟搞定Git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="闹闹">
-      <meta itemprop="description" content="闹闹的个人博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="闹闹吃鱼">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">实用且简单的Git教程，5分钟搞定Git
-
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-25 00:00:00 / 修改时间：15:46:34" itemprop="dateCreated datePublished" datetime="2019-05-25T00:00:00+08:00">2019-05-25</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/05/25/实用且简单的Git教程，5分钟搞定Git/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/25/实用且简单的Git教程，5分钟搞定Git/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-            <span id="/2019/05/25/实用且简单的Git教程，5分钟搞定Git/" class="leancloud_visitors" data-flag-title="实用且简单的Git教程，5分钟搞定Git">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
+    <div class="post-body post-content">
         <p><img src="https://upload-images.jianshu.io/upload_images/15072499-7f52aff5e9ee727d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>俗说金三银四，大部分人都选择在这个时候找工作</p>
 <p>有拿完年终奖准备跳槽的，也有年前就辞职，已经休了一个长期年假的，还有刚走出校门的青涩少年们</p>
@@ -419,84 +183,60 @@
 <p>若不会安装，请移步搜索引擎，搜索Git安装教程，本文不过多描述安装过程</p>
 <h2 id="第一次使用Git"><a href="#第一次使用Git" class="headerlink" title="第一次使用Git"></a>第一次使用Git</h2><p>安装好后，直接打开Git Bash，也就是Git 的控制台程序，就可以开始使用了</p>
 <p>第一次使用Git，需要先配置自己的邮箱与名称</p>
-<p>配置邮箱地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;NaoNao.@nao.com&quot;</span><br></pre></td></tr></table></figure>
-
-<p>配置用户名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;NaoNao&quot;</span><br></pre></td></tr></table></figure>
-
+<p>配置邮箱地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;NaoNao.@nao.com&quot;</span><br></pre></td></tr></table></figure></p>
+<p>配置用户名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;NaoNao&quot;</span><br></pre></td></tr></table></figure></p>
 <p>配置完，Git不会给出任何提示，Unix的逻辑就是，没有提示就是最美的提示。</p>
-<p>注意<figure class="highlight plain"><figcaption><span>config```命令的```--global```参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">要想查看是否配置成功，依然是使用上述命令，把引号以及引号内的内容去掉即可。</span><br><span class="line"></span><br><span class="line">## 拉取项目</span><br><span class="line">配置好我们的个人信息后，自然也就需要拉取项目了</span><br><span class="line"></span><br><span class="line">在磁盘中新建好存放项目的文件夹，进入文件夹点击鼠标右键，选择Git Bash即可</span><br><span class="line"></span><br><span class="line">温馨提示：使用Git托管的项目，有两种地址，Https与SSH。</span><br><span class="line">使用Https地址拉取，验证一次密码后，以后每次拉取/推送的时候不再需要验证密码。</span><br><span class="line">使用SSH地址拉取的项目，每次拉取/推送的时候都需要密码验证。</span><br><span class="line">各位读者自己抉择。</span><br><span class="line"></span><br><span class="line">我的项目地址是 https://github.com/AdolphKevin/NaoNao.git</span><br><span class="line">```git</span><br><span class="line">git clone https://github.com/AdolphKevin/NaoNao.git</span><br></pre></td></tr></table></figure></p>
+<p>注意<code>git config</code>命令的<code>--global</code>参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+<p>要想查看是否配置成功，依然是使用上述命令，把引号以及引号内的内容去掉即可。</p>
+<h2 id="拉取项目"><a href="#拉取项目" class="headerlink" title="拉取项目"></a>拉取项目</h2><p>配置好我们的个人信息后，自然也就需要拉取项目了</p>
+<p>在磁盘中新建好存放项目的文件夹，进入文件夹点击鼠标右键，选择Git Bash即可</p>
+<p>温馨提示：使用Git托管的项目，有两种地址，Https与SSH。<br>使用Https地址拉取，验证一次密码后，以后每次拉取/推送的时候不再需要验证密码。<br>使用SSH地址拉取的项目，每次拉取/推送的时候都需要密码验证。<br>各位读者自己抉择。</p>
+<p>我的项目地址是 <a href="https://github.com/AdolphKevin/NaoNao.git" target="_blank" rel="noopener">https://github.com/AdolphKevin/NaoNao.git</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/AdolphKevin/NaoNao.git</span><br></pre></td></tr></table></figure></p>
 <p>将你的项目地址替换掉我的项目地址即可</p>
-<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><p>说分支管理之前，在此做个<strong>背景说明</strong>：一般在项目开发中会有2个主分支（master与develop）<br>master分支上的内容是发布在<strong>生产环境</strong>运行的内容<br>develop分支是所有开发人员<strong>开发完成</strong>发布到测试环境的内容<br>其它各种feature分支都是各位开发人员在开发时拉取使用的分支</p>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><p>说分支管理之前，在此做个<strong>背景说明</strong>：一般在项目开发中会有2个主分支（master与develop）</p>
+<p>master分支上的内容是发布在<strong>生产环境</strong>运行的内容</p>
+<p>develop分支是所有开发人员<strong>开发完成</strong>发布到测试环境的内容</p>
+<p>其它各种feature分支都是各位开发人员在开发时拉取使用的分支</p>
 <p>此文，也沿用此方式，各位读者按照自己实际情况判断</p>
 <p>拉取下来后，我们要进行开发，肯定不能在master分支上开发，一般在项目上都会有各种分支</p>
-<p>项目clone下来，首先就是查看分支了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r</span><br></pre></td></tr></table></figure>
-
+<p>项目clone下来，首先就是查看分支了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -r</span><br></pre></td></tr></table></figure></p>
 <p>加上-r是代表查看远程仓库的分支，要是查看本地分支，只需要把-r去掉即可，-r是remote的简写</p>
 <p>查看远程分支，所有的分支名前均会带有origin/ 的前缀，这个前缀代表着远程分支，拉取远程分支，填写远程分支名时不需要带上origin/</p>
-<p>接到开发任务，我们需要从远程仓库上将我们需要开发的分支拉取到本地</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin x(远程分支名):y(本地分支名)</span><br></pre></td></tr></table></figure>
-
+<p>接到开发任务，我们需要从远程仓库上将我们需要开发的分支拉取到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin x(远程分支名):y(本地分支名)</span><br></pre></td></tr></table></figure></p>
 <p>使用上述代码，可以将远程分支拉取到本地，并创建本地分支</p>
-<p>接着就是要将刚刚创建的本地分支与远程分支做关联了，做了关联之后，拉取更新与推送都不需要再指定分支名称</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/x(远程分支名)  y(本地分支名)</span><br></pre></td></tr></table></figure>
-
+<p>接着就是要将刚刚创建的本地分支与远程分支做关联了，做了关联之后，拉取更新与推送都不需要再指定分支名称<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/x(远程分支名)  y(本地分支名)</span><br></pre></td></tr></table></figure></p>
 <p>其中，x是你本地分支对应的远程分支；y是你当前的本地分支。</p>
-<h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><p>做完关联后，咱们就需要切换分支，在特定的分支上去进行开发任务<br>先查看本地分支，找到我们需要开发的分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
-
-<p>再切换到我们需要开发的分支上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout y(分支名)</span><br></pre></td></tr></table></figure>
-
+<h2 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h2><p>做完关联后，咱们就需要切换分支，在特定的分支上去进行开发任务<br>先查看本地分支，找到我们需要开发的分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p>
+<p>再切换到我们需要开发的分支上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout y(分支名)</span><br></pre></td></tr></table></figure></p>
 <h2 id="提交内容"><a href="#提交内容" class="headerlink" title="提交内容"></a>提交内容</h2><p>我们在自己的分支上按照需求完成了开发任务，接着就是将我们开发的内容提交到远程仓库了</p>
 <p>虽然咱们所在的分支，除了自己之外，按理说是没人会在自己这个分支上再进行开发，所以推送前拉取更新也不很必要</p>
-<p>但是为了避免不必要的麻烦，提交之前还是先拉取一下最新的数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
-
+<p>但是为了避免不必要的麻烦，提交之前还是先拉取一下最新的数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
 <p>获取了最新数据后，如果有别的同事动了咱们的分支，那肯定得先解决一下文件的冲突，若没有人动，那也就不用处理了</p>
-<p>接着将我们添加/修改的文件提交到本地暂存区</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add xxx(文件名)</span><br></pre></td></tr></table></figure>
-
+<p>接着将我们添加/修改的文件提交到本地暂存区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add xxx(文件名)</span><br></pre></td></tr></table></figure></p>
 <p>xxx代表着文件名。当然，开发时咱们基本上很少只修改/添加一个单独的文件，当修改或添加了很多文件时，让我们一个一个文件的add，能把人给累死</p>
-<p>所以Git也给出了批量add的方法，简单粗暴</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br></pre></td></tr></table></figure>
-
+<p>所以Git也给出了批量add的方法，简单粗暴<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br></pre></td></tr></table></figure></p>
 <p>-A是All的缩写，git add all 可以提交未跟踪、修改和删除文件。<br>.git add . 可以提交未跟踪和修改文件，但是不处理删除文件。</p>
-<p>提交到暂存区后完成后就是将改动内容全部提交</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;提交到暂存区&quot;</span><br></pre></td></tr></table></figure>
-
+<p>提交到暂存区后完成后就是将改动内容全部提交<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;提交到暂存区&quot;</span><br></pre></td></tr></table></figure></p>
 <p>引号内的文字，是此次提交内容的一个说明描述，以后看日志时也便于知道此次进行了什么内容的修改</p>
-<p>提交完后就是将本次修改的内容推送至远程仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-<p>好了，到这里push的时候，坑来了<del>~</del></p>
+<p>提交完后就是将本次修改的内容推送至远程仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<p>好了，到这里push的时候，坑来了~~~</p>
 <p>如果是自己一个人的项目，此时如何push都没问题，但问题就出在，咱们是多人开发的项目，咱们的分支是需要与主分支合并(merge)。</p>
 <p>别的同事的任务完成了，早已推送到我们将要合并的develop分支上了</p>
 <p>所以我们在push之前需要进行code merge ，将develop分支上的内容merge到我们当前的feature分支上</p>
-<h2 id="代码合并"><a href="#代码合并" class="headerlink" title="代码合并"></a>代码合并</h2><p>此时我们在feature分支上已经将修改内容commit了<br>需要将develop分支的内容合并到当前分支，先切换分支到develop上，再获取一次更新</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout develop</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
-
+<h2 id="代码合并"><a href="#代码合并" class="headerlink" title="代码合并"></a>代码合并</h2><p>此时我们在feature分支上已经将修改内容commit了<br>需要将develop分支的内容合并到当前分支，先切换分支到develop上，再获取一次更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout develop</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
 <p>这里切换到develop分支上获取更新时有个小坑，咱们暂且按照一切顺利来处理，后面再说一些常见的意外情况的处理。</p>
-<p>获取完更新后，再切换到我们的feature分支上，将develop的内容合并到我们的feature分支上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout feature</span><br></pre></td></tr></table></figure>
-
-<p>合并某分支到当前分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge develop</span><br></pre></td></tr></table></figure>
-
+<p>获取完更新后，再切换到我们的feature分支上，将develop的内容合并到我们的feature分支上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout feature</span><br></pre></td></tr></table></figure></p>
+<p>合并某分支到当前分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge develop</span><br></pre></td></tr></table></figure></p>
 <h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><p>执行merge后，如果有冲突，控制台会将有冲突的文件名展示出来，我们按照文件名找到对应文件，将冲突给解决掉后。</p>
 <p>打开文件我们可以看到冲突的内容，例如：</p>
 <blockquote>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt;HEAD<br>hello world feature<br>=======<br>hello world develop<br>&gt;&gt;&gt;&gt;&gt;&gt; develop</p>
+<p>\&lt;&lt;&lt;&lt;&lt;&lt;<head hello world feature \="======" develop><meta name="generator" content="Hexo 3.8.0">&gt;&gt;&gt;&gt;&gt; develop</head></p>
 </blockquote>
 <p>Git用<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>，<code>=======</code>，<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>标记出不同分支的内容</p>
 <p><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;与=======之间</code>的内容为<strong>当前分支</strong>的内容</p>
 <p><code>=======与&gt;&gt;&gt;&gt;&gt;&gt;</code>之间的内容为<strong>develop分支</strong>的内容（换句话说：就是需要<strong>被合并的分支</strong>内容）</p>
 <p><strong>将不需要保留的内容删除即可解决冲突</strong></p>
-<p>解决冲突后，我们再将当前的feature分支推送到远程仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-
+<p>解决冲突后，我们再将当前的feature分支推送到远程仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure></p>
 <p>执行完本命令行后，即可将本地分支内容推送至远程仓库</p>
 <h2 id="获取更新时的意外情况"><a href="#获取更新时的意外情况" class="headerlink" title="获取更新时的意外情况"></a>获取更新时的意外情况</h2><p>前面说从feature分支切换到develop分支拉取更新时，会有个小坑，因为有时候Git会报错</p>
 <blockquote>
@@ -506,37 +246,26 @@
 <p>由于文件存在于远程存储库中，因此git也必须将它们提取到本地工作树，因此会抱怨文件已经存在。 </p>
 <p>.gitignore 仅用于扫描新添加的文件，它与已添加的文件没有任何关系。</p>
 <p>因此，解决方案是删除工作树中的文件并提取最新版本。或者长期解决方案是如果错误地添加了文件，则从存储库中删除文件。</p>
-<p>这时我们在develop 分支上删除当前目录下没有被track过的文件和文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -d -f</span><br></pre></td></tr></table></figure>
-
+<p>这时我们在develop 分支上删除当前目录下没有被track过的文件和文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -d -f</span><br></pre></td></tr></table></figure></p>
 <p>现在重新获取更新即可</p>
 <h2 id="开发到一半，却需要切换分支"><a href="#开发到一半，却需要切换分支" class="headerlink" title="开发到一半，却需要切换分支"></a>开发到一半，却需要切换分支</h2><p>软件开发中，Bug就像家常便饭一样。有了Bug就需要修复，在Git中，由于分支是如此的强大，所以，在实战中，每个Bug都是通过一个新的临时分支来修复，修复后，将Bug分支合并到develop与master两个分支上，然后将临时分支删除</p>
 <p>注意：将Bug分支合并到develop与master两个分支上，是在远程仓库完成。在本地，是需要将develop与master分支先获取最新，然后将这两分支分别合并在Bug分支上，解决冲突后直接推送Bug分支即可</p>
-<p>可我们在feature分支上开发功能开发到一半，leader突然跑来告诉我们，生产环境出现了一个Bug，需要咱们紧急修复，咱们兴致勃勃的使用<figure class="highlight plain"><figcaption><span>checkout Bug```命令，打算切换到Bug分支上去修复Bug</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">结果……Git却告诉我们，无法切换过去，因为我们目前所在分支没有提交……</span><br><span class="line"></span><br><span class="line">可我们若要完成开发任务再去修复Bug，可能需要好几个小时甚至几天时间才能完成，而Bug修复却是紧急任务，这该如何是好呢？</span><br><span class="line"></span><br><span class="line">问题不大，不慌。此时我们可以将当前分支开发的工作状态储藏下来，待我们解决了Bug，再恢复我们现在的状态</span><br><span class="line">```git</span><br><span class="line">git stash</span><br></pre></td></tr></table></figure></p>
-<p>执行完上述命令后，我们再来看看我们工作区是否干净</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-
+<p>可我们在feature分支上开发功能开发到一半，leader突然跑来告诉我们，生产环境出现了一个Bug，需要咱们紧急修复，咱们兴致勃勃的使用<code>git checkout Bug</code>命令，打算切换到Bug分支上去修复Bug</p>
+<p>结果……Git却告诉我们，无法切换过去，因为我们目前所在分支没有提交……</p>
+<p>可我们若要完成开发任务再去修复Bug，可能需要好几个小时甚至几天时间才能完成，而Bug修复却是紧急任务，这该如何是好呢？</p>
+<p>问题不大，不慌。此时我们可以将当前分支开发的工作状态储藏下来，待我们解决了Bug，再恢复我们现在的状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure></p>
+<p>执行完上述命令后，我们再来看看我们工作区是否干净<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></p>
 <p>我们发现工作区非常干净，此时我们就可以顺利的执行<figure class="highlight plain"><figcaption><span>checkout Bug```到Bug分支上去修改Bug了</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">咱们现在将Bug也解决了，也推送了，现在又回到feature分支继续咱们之前的任务了，切换回feature分支后，之前修改的内容也没有恢复啊！说好的储藏了工作状态呢？</span><br><span class="line"></span><br><span class="line">咱们就来看看所有储藏的工作</span><br><span class="line">```git</span><br><span class="line">git stash list</span><br></pre></td></tr></table></figure></p>
-<p>使用上述命令，Git会将所有的储藏工作罗列出来，当我们想要恢复其中某一个储藏状态时，指定其名字就好了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply stash@&#123;0&#125;</span><br></pre></td></tr></table></figure>
-
+<p>使用上述命令，Git会将所有的储藏工作罗列出来，当我们想要恢复其中某一个储藏状态时，指定其名字就好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply stash@&#123;0&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上述的stash@{0} 是当前分支储藏的工作名，各位读者根据自己的<figure class="highlight plain"><figcaption><span>stash list ```中的内容，自行替换</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">切换后，确认完当前状态无误了，就可以将之前保存的储藏删除</span><br><span class="line">```git</span><br><span class="line">git stash drop stash@&#123;0&#125;</span><br></pre></td></tr></table></figure></p>
-<p>觉得要执行两行命令比较麻烦？没关系，还有一次性解决问题的方法<br>切换后并自动删除</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash pop stash@&#123;0&#125;</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-
+<p>觉得要执行两行命令比较麻烦？没关系，还有一次性解决问题的方法<br>切换后并自动删除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash pop stash@&#123;0&#125;</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
 <p>不过我个人不大推荐这种方式，万一咱们恢复的储藏指定错了呢，要恢复起来还挺麻烦的。</p>
 <h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><p>在开发时，总有需要回退到某个版本的时候，不然用版本控制系统干嘛？是吧</p>
-<p>我们先来看看我们的历史版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-
+<p>我们先来看看我们的历史版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure></p>
 <p>现在控制台输出了最近三次提交的日志信息，友情提示一下，按键盘Q可退出，按回车可查看更多的日志</p>
-<p>要是嫌弃输出的内容过于冗杂，可以让Git显示个简单版</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --pretty=oneline</span><br></pre></td></tr></table></figure>
-
+<p>要是嫌弃输出的内容过于冗杂，可以让Git显示个简单版<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --pretty=oneline</span><br></pre></td></tr></table></figure></p>
 <p>加上一个<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">现在我们可以根据当时commit时填写的描述信息，来判断哪一个ID是我们想要回退的版本</span><br><span class="line"></span><br><span class="line">版本的回退，有两种常用的方式</span><br><span class="line"></span><br><span class="line">回退到上一个版本</span><br><span class="line">```git </span><br><span class="line">git reset --hard HEAD</span><br></pre></td></tr></table></figure></p>
-<p>根据commit的ID，回退到指定版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard commit_id</span><br></pre></td></tr></table></figure>
-
+<p>根据commit的ID，回退到指定版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard commit_id</span><br></pre></td></tr></table></figure></p>
 <p>commit_id这个版本号没必要写全，只需要写6位以上就差不多了，Git能自己找到它，若存在前6位重复ID，那再多加几位就好了</p>
 <p>版本的回退也非常的简单吧，Git的命令行操作写到这儿，也进入尾声了。上述的命令基本可以满足日常的使用</p>
 <h2 id="写在最后的总结"><a href="#写在最后的总结" class="headerlink" title="写在最后的总结"></a>写在最后的总结</h2><p>Git命令行的操作，使用起来并不复杂，作为开发人员，要是没有深入了解Git的意愿，会用就行了，使用Git的要领就是大量使用分支<br>总结一下本文牵扯到的git操作<br><code>git config --global user.name</code>查看用户名或配置用户名</p>
@@ -567,398 +296,121 @@
 <p><code>git reset --hard commit_id</code>根据commit_id回退到指定版本</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/15072499-bf1cf0945c3963a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <h2 id="关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！"><a href="#关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！" class="headerlink" title="关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！"></a>关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！</h2>
-      
     </div>
-
     
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Git/" rel="tag"># Git</a>
-          
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">闹闹吃鱼</a>
+            
         </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
+        <div>
             
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/25/为什么你的想法那么容易动摇？/" rel="prev" title="为什么你的想法那么容易动摇？">
-                为什么你的想法那么容易动摇？ <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
         </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-  </div>
-
-
-          </div>
-          
-
-  
-    <div class="comments" id="comments">
     </div>
+</article>
 
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">闹闹</p>
-              <div class="site-description motion-element" itemprop="description">闹闹的个人博客</div>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">2</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">2</span>
-                    <span class="site-state-item-name">标签</span>
-                  
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一次使用Git"><span class="nav-number">1.</span> <span class="nav-text">第一次使用Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">2.</span> <span class="nav-text">分支管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切换分支"><span class="nav-number">3.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交内容"><span class="nav-number">4.</span> <span class="nav-text">提交内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码合并"><span class="nav-number">5.</span> <span class="nav-text">代码合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决冲突"><span class="nav-number">6.</span> <span class="nav-text">解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取更新时的意外情况"><span class="nav-number">7.</span> <span class="nav-text">获取更新时的意外情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发到一半，却需要切换分支"><span class="nav-number">8.</span> <span class="nav-text">开发到一半，却需要切换分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本回退"><span class="nav-number">9.</span> <span class="nav-text">版本回退</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后的总结"><span class="nav-number">10.</span> <span class="nav-text">写在最后的总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！"><span class="nav-number">11.</span> <span class="nav-text">关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-  
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">闹闹</span>
-
-  
-
-  
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/05/25/为什么你的想法那么容易动摇？/" class="pre-post btn btn-default" title='为什么你的想法那么容易动摇？'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">为什么你的想法那么容易动摇？</span>
+        </a>
+    
+    
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.1</div>
-
-
-
-
+    <div id="comments">
         
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xl6g1Q7kvS1x15q1q777Ig4V-gzGzoHsz',
+            appKey: 'uVeUIqfE7bmut1PrMA6VMVGo',
+            placeholder: '一起high呀~可以使用markdown语法哦！',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
 
 
 
 
 
-
-
-
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
         
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一次使用Git"><span class="toc-text">第一次使用Git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拉取项目"><span class="toc-text">拉取项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支管理"><span class="toc-text">分支管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#切换分支"><span class="toc-text">切换分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提交内容"><span class="toc-text">提交内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码合并"><span class="toc-text">代码合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决冲突"><span class="toc-text">解决冲突</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取更新时的意外情况"><span class="toc-text">获取更新时的意外情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发到一半，却需要切换分支"><span class="toc-text">开发到一半，却需要切换分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#版本回退"><span class="toc-text">版本回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后的总结"><span class="toc-text">写在最后的总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！"><span class="toc-text">关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！</span></a></li></ol>
         
-      </div>
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
     
+</div>
 
-    
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
 
-    
 
-    
-  </div>
 
-  
 
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/utils.js?v=7.1.1"></script>
-
-  <script src="/js/motion.js?v=7.1.1"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/schemes/muse.js?v=7.1.1"></script>
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.1.1"></script>
-<script src="/js/post-details.js?v=7.1.1"></script>
-
-
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.1.1"></script>
-
-
-  
-
-  
-
-  
-
-  
-  
-
-<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
-
-
-
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-<script>
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#comments',
-    verify: false,
-    notify: true,
-    appId: 'xl6g1Q7kvS1x15q1q777Ig4V-gzGzoHsz',
-    appKey: 'uVeUIqfE7bmut1PrMA6VMVGo',
-    placeholder: '留言快活呀~（支持markdown语法）',
-    avatar: 'mm',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: true,
-    lang: 'zh-cn' || 'zh-cn'
-  });
-</script>
-
-
-
-
-  
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+<script src="/js/app.js?rev=@@hash"></script>
 
 </body>
 </html>
