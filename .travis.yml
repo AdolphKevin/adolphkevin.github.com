@@ -53,7 +53,7 @@ after_script:
 
 branches:
   only:
-    - dev
+    - hexo
 env:
  global:
    - GH_REF: https://github.com/AdolphKevin/adolphkevin.github.com.git
