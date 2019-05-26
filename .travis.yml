@@ -40,16 +40,22 @@ before_script:
 
 script:
   - hexo clean && hexo g
-  - gulp
-  
 
 after_success:
-   - hexo d
+   是在Travis中配置token的名称
  # - LAST_BUILD_NUMBER=68
  # - for i in $(seq 1 $LAST_BUILD_NUMBER ); do  travis logs $i --delete --force ; done
 
 after_script:
   - ./_travis.sh
+ - cd ./public
+ - git init
+ - git config user.name "${USER_NAME}" # 修改name
+ - git config user.email "${USER_EMAIL}" # 修改email
+ - git add .
+ - git commit -m "Travis CI Auto Builder"
+ - git push --force --quiet "https://${REPO_TOKEN}@${GITHUB_URL}" master:master # GH_TOKEN
+
 
 # E: Build LifeCycle
 
