@@ -32,8 +32,8 @@ before_install:
 
 install:
   - npm install
-#  - gem install travis
-#  - travis login --pro --github-token ${GH_TOKEN}
+  - gem install travis
+  - travis login --pro --github-token ${REPO_TOKEN}
 
 before_script:
   - export TZ='Asia/Shanghai'
