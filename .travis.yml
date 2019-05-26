@@ -20,8 +20,8 @@ notifications:
   # 邮件发送部署结果通知
   email:
     recipients:
-      - snippet@91h5.cc
-    on_success: change
+      - AdolfYin@gmail.com
+    on_success: always
     on_failure: always
 
 # S: Build Lifecycle
