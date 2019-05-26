@@ -47,7 +47,7 @@ after_success:
  # - for i in $(seq 1 $LAST_BUILD_NUMBER ); do  travis logs $i --delete --force ; done
 
 after_script:
-  - ./_travis.sh
+ - ./_travis.sh
  - cd ./public
  - git init
  - git config user.name "${USER_NAME}" # 修改name
