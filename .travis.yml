@@ -33,7 +33,7 @@ before_install:
 install:
   - npm install
   #- gem install travis
-  - travis login --pro --github-token ${REPO_TOKEN}
+  - travis login --github-token ${REPO_TOKEN}
 
 before_script:
   - export TZ='Asia/Shanghai'
@@ -61,7 +61,7 @@ after_success:
  
  #- git config --global user.name "${USER_NAME}"
  #- git config --global user.email "${USER_EMAIL}"
- - sed -i'' "/^ *repo/s~github\.com~${REPO_TOKEN}@github.com~" _config.yml
+ #- sed -i'' "/^ *repo/s~github\.com~${REPO_TOKEN}@github.com~" _config.yml
  hexo deploy
  
  #  是在Travis中配置token的名称
