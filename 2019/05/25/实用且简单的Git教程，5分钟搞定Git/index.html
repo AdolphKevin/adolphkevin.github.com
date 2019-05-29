@@ -190,7 +190,9 @@
 <p>要想查看是否配置成功，依然是使用上述命令，把引号以及引号内的内容去掉即可。</p>
 <h2 id="拉取项目"><a href="#拉取项目" class="headerlink" title="拉取项目"></a>拉取项目</h2><p>配置好我们的个人信息后，自然也就需要拉取项目了</p>
 <p>在磁盘中新建好存放项目的文件夹，进入文件夹点击鼠标右键，选择Git Bash即可</p>
-<p>温馨提示：使用Git托管的项目，有两种地址，Https与SSH。<br>使用Https地址拉取，验证一次密码后，以后每次拉取/推送的时候不再需要验证密码。<br>使用SSH地址拉取的项目，每次拉取/推送的时候都需要密码验证。<br>各位读者自己抉择。</p>
+<p>温馨提示：使用Git托管的项目，有两种地址，Https与SSH。</p>
+<p><strong>使用Https地址</strong>拉取，验证一次密码后，以后每次拉取/推送的时候不再需要验证密码。</p>
+<p><strong>使用SSH地址</strong>拉取的项目，每次拉取/推送的时候都需要密码验证。<br>各位读者自己抉择。</p>
 <p>我的项目地址是 <a href="https://github.com/AdolphKevin/NaoNao.git" target="_blank" rel="noopener">https://github.com/AdolphKevin/NaoNao.git</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/AdolphKevin/NaoNao.git</span><br></pre></td></tr></table></figure></p>
 <p>将你的项目地址替换掉我的项目地址即可</p>
 <h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><p>说分支管理之前，在此做个<strong>背景说明</strong>：一般在项目开发中会有2个主分支（master与develop）</p>
@@ -230,7 +232,7 @@
 <h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><p>执行merge后，如果有冲突，控制台会将有冲突的文件名展示出来，我们按照文件名找到对应文件，将冲突给解决掉后。</p>
 <p>打开文件我们可以看到冲突的内容，例如：</p>
 <blockquote>
-<p>\&lt;&lt;&lt;&lt;&lt;&lt;<head hello world feature \="======" develop><meta name="generator" content="Hexo 3.8.0">&gt;&gt;&gt;&gt;&gt; develop</head></p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br>hello world feature<br>\=======<br>hello world develop<br>>&gt;&gt;&gt;&gt;&gt; develop</p>
 </blockquote>
 <p>Git用<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>，<code>=======</code>，<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>标记出不同分支的内容</p>
 <p><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;与=======之间</code>的内容为<strong>当前分支</strong>的内容</p>
@@ -301,7 +303,7 @@
     <div class="post-footer">
         <div>
             
-                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">闹闹吃鱼</a>
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">闹闹吃鱼</a>
             
         </div>
         <div>
@@ -312,7 +314,7 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2019/05/25/为什么你的想法那么容易动摇？/" class="pre-post btn btn-default" title='为什么你的想法那么容易动摇？'>
+        <a href="/2019/05/25/为什么你的想法那么容易动摇？/" class="pre-post btn btn-default" title="为什么你的想法那么容易动摇？">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
             <span class="hidden-xs">为什么你的想法那么容易动摇？</span>
         </a>

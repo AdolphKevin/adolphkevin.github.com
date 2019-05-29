@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="闹闹吃鱼">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://AdolphKevin.github.io">
+    <!--SEO-->
+
+    <meta name="keywords" content="Git">
+
+
+    <meta name="description" content="
+上次写完 实用且简单的Git教程，轻松搞定多人开发](https://mp.weixin.qq.com/s?__biz=MzU2NzczMzk5Nw==&amp;mid=2247483753&...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>分享一个用Git装逼的小技巧~ | 闹闹吃鱼</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="闹闹吃鱼" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="闹闹">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://AdolphKevin.github.io">闹闹吃鱼</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="分享一个用Git装逼的小技巧~">
+            
+	            分享一个用Git装逼的小技巧~
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/Git教程/">Git教程</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Git/">Git</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/26</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><img src="https://upload-images.jianshu.io/upload_images/15072499-0e0cecc41d7e602b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>上次写完 <a href="https://mp.weixin.qq.com/s?__biz=MzU2NzczMzk5Nw==&amp;mid=2247483753&amp;idx=1&amp;sn=a8d654a7f61833b976f65a9e93b4f56c&amp;chksm=fc99faebcbee73fd8ef1b8bd777f064d90f5a8c5a628da6814065028264b174e09b1b3551176&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">实用且简单的Git教程，轻松搞定多人开发](https://mp.weixin.qq.com/s?__biz=MzU2NzczMzk5Nw==&amp;mid=2247483753&amp;idx=1&amp;sn=a8d654a7f61833b976f65a9e93b4f56c&amp;chksm=fc99faebcbee73fd8ef1b8bd777f064d90f5a8c5a628da6814065028264b174e09b1b3551176&amp;scene=21#wechat_redirect</a>)，得到的反馈信息简直超乎我的预期。</p>
+<p>我前两天登掘金、简书、CSDN上把微信公众号的文章copy过去的时候，那阅读量和点赞数简直亮瞎我了……</p>
+<p>按理来说，写的好，作为我公众号的读者们，你们都是我从别的平台辛辛苦苦一点一点的挖来的，对我更认可才对，居然没几个人给我点「好看」，也没见你们谁分享转发</p>
+<p>我公众号所有文章的点赞数和阅读数全加起来，还不copy过去的文章的十分之一，让我很是伤心啊，点个「好看」表达一下对我文字的认可，我才更有动力写更好的文字与你们分享啊</p>
+<p>作为一个主营微信公众号的号主，要靠别的平台的点赞数据，来获得成就感，我想我也是混的够惨了。</p>
+<p>不过值得欣慰的是，最近有人私信我，跟我说“就是因为看了我那篇文章，才把GIT的命令行给记住的”。听了后我简直高兴的不行</p>
+<p>GIt是个好东西，用了Git后，其它的版本控制器我是觉得真的不好用，而且命令行操作更是好用的不得了</p>
+<p>上篇Git的命令行使用，基本已经解决了95%的问题。（只是从开发人员使用的角度）</p>
+<p>这次做一点补充，<strong>再给你们分享个小技巧，巨好用，还能装逼！</strong><br><img src="https://upload-images.jianshu.io/upload_images/15072499-8e3b68ae10645f7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="Git-Log的进阶使用"><a href="#Git-Log的进阶使用" class="headerlink" title="Git Log的进阶使用"></a>Git Log的进阶使用</h2><p>Git查看日志，单独使用<figure class="highlight plain"><figcaption><span>log```来操作，每一个commit信息太多，干扰信息又太多，而且各种分支的合并也看不到，难受的很。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">今天给你们分享一个装逼的命令行，结合上一篇的文章[实用且简单的Git教程，5分钟搞定Git](https://www.jianshu.com/p/a3f0f55c88fb)，现在就完全可以摆脱第三方软件来使用Git了，复制粘贴即可使用</span><br><span class="line"></span><br><span class="line">&gt; git log --graph --pretty=format:&apos;%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit --date=relative </span><br><span class="line"></span><br><span class="line">给你们看看效果，是不是巨牛逼？</span><br><span class="line"></span><br><span class="line">![](https://upload-images.jianshu.io/upload_images/15072499-251d2d176bff7d3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">命令行这么长还这么复杂，我们该怎么记住呢？莫慌，再给你分享一个好东西</span><br><span class="line"></span><br><span class="line">那就是Git的一个别名操作```alias```，使用这个命令，可以极大的提高我们的命令行输入效率</span><br><span class="line"></span><br><span class="line">## alias效率为王</span><br><span class="line"></span><br><span class="line">我们经常使用的命令有```branch```，```checkout```，```commit```之类的，虽然简单，但是输入起来也是麻烦，作为一个程序员，开发程序就是为了提高效率的，能动一下手指解决问题，就绝不动两下，要把「懒」给发挥到极致才行</span><br><span class="line"></span><br><span class="line">比如看下面的例子：</span><br><span class="line"></span><br><span class="line">```git</span><br><span class="line">git config --global alias.ck checkout</span><br><span class="line"></span><br><span class="line">git config --global alias.br branch</span><br><span class="line"></span><br><span class="line">git config --global alias.ck commit</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
+<p>这样配置好了之后，我们以后使用这些命令，像<figure class="highlight plain"><figcaption><span>checkout```，直接输入```git ck```就能完事。是不是666？</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```alias.xx```点后面的```xx```就代表了我们设置的别名，使用的时候，直接输入别名就好了</span><br><span class="line"></span><br><span class="line">像上面那么长的```git log```，咱们完全就可以使用```alias```来提高效率，下面的命令行直接复制粘贴就能使用了~</span><br><span class="line"></span><br><span class="line">若是你不做任何修改，使用的时候输入```git lg```即可</span><br><span class="line">```git</span><br><span class="line">git config --global alias.lg &quot;log --graph --pretty=format:&apos;%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit --date=relative&quot;</span><br></pre></td></tr></table></figure></p>
+<p>配个图给你们看看</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15072499-1dc99c74735ed04f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>执行后，使用的时候直接打开控制台输入<code>git lg</code>即可，又装逼，又省事</p>
+<p>顺便提示一下，Git的命令行操作时，复制是<code>ctrl+insert</code>，粘贴是<code>shift+insert</code>，查看日志时，按「回车键」可以加载更多日志信息，按<code>q</code>键是退出日志查看</p>
+<p>在<code>merge</code>后的<code>commit</code>，偶尔会弹出一个Linux对话框让你写备注</p>
+<p>此时需要用到Linux指令才能操作</p>
+<p>按<code>i</code>进入对话框编辑模式，将<code>commit</code>的备注内容写好后<br>按<code>ESC</code>退出编辑模式<br>按<code>:</code>+<code>wq</code>退出并保存即可</p>
+<h2 id="为什么要用命令行？"><a href="#为什么要用命令行？" class="headerlink" title="为什么要用命令行？"></a>为什么要用命令行？</h2><p>你们应该都知道，<strong>第三方界面化软件操作Git，本质上其实都是用的Git命令行，一些复杂的操作都是直接将GIT组合好后直接执行</strong>，只是软件把他们封装了起来，没让我们看到命令行罢了</p>
+<p>之前我也是用可视化的第三方软件来使用Git命令行的操作，后来发现总是有着莫名其妙的问题，并且错误提示看起来就是一头雾水，后来干脆就学着使用命令行操作</p>
+<p>使用命令行之后才发现，执行的速度以及准确度，<strong>比用第三方软件的效率要高的多</strong>，并且一些莫名其妙的问题也再也没遇见过了</p>
+<p>因为软件是把一系列的Git命令给封装起来，而我们自己使用的时候，Git提交的逻辑顺序我们是很清楚的，这样一步一步走下来，只要逻辑是对的，就不会出错，就算出错了，<strong>命令行操作时，错在哪，该怎么修正，都提示的一清二楚</strong>，这也省下了我们拿着界面化软件的报错去找百度的时间。</p>
+<p>刚开始用命令行操作的时候，是有一些不大习惯，但是用熟练之后，你完全就不会想打开第三方软件了~</p>
+<p>当然了，<strong>技术只是一个工具，工具的目的就是为了提升效率</strong>，如果觉得使用GUI界面化的软件你的效率更高，那就按照自己的高效率方式去做就好了。</p>
+<p>像我，我就是在追求效率的同时，还想着要能装装逼~~</p>
+<p>我做为一个依赖Windows生态的码畜，一切都是可视化操作，唯一能有点能像电影里极客样的样子，也就是用Git命令行的时候了……</p>
+<p>毕竟每次用Git时，屏幕上的命令框里，突突突的跳出这些命令，感觉自己就像电影里的极客那样帅</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>今天周末，也就是爬上来跟你们聊会儿，顺便分享两个小技巧。以后不出意外每周都会这样，当然了，我是指每周分享个小技巧什么的，心情不错的时候，就顺带逼逼叨一下</p>
+<p>分享的小技巧什么的，分享的范围你们可以后台留言告诉我你们想要看什么方面的，我就多写写你们想要看的，反正趁着现在关注我的人不多，基本上每个人都能照顾到，现在不压榨我，还等什么时候呢？</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15072499-3437bf10840001c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h4 id="扫描关注微信公众号「闹闹吃鱼」，每天都有好分享"><a href="#扫描关注微信公众号「闹闹吃鱼」，每天都有好分享" class="headerlink" title="扫描关注微信公众号「闹闹吃鱼」，每天都有好分享"></a>扫描关注微信公众号「闹闹吃鱼」，每天都有好分享</h4>
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">闹闹吃鱼</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/05/29/JS获取URL参数/" class="pre-post btn btn-default" title="JS该如何取得URL里的参数？">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">JS该如何取得URL里的参数？</span>
+        </a>
+    
+    
+        <a href="/2019/05/25/为什么你的想法那么容易动摇？/" class="next-post btn btn-default" title="为什么你的想法那么容易动摇？">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">为什么你的想法那么容易动摇？</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xl6g1Q7kvS1x15q1q777Ig4V-gzGzoHsz',
+            appKey: 'uVeUIqfE7bmut1PrMA6VMVGo',
+            placeholder: '一起high呀~可以使用markdown语法哦！',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Log的进阶使用"><span class="toc-text">Git Log的进阶使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要用命令行？"><span class="toc-text">为什么要用命令行？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-text">写在最后</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#扫描关注微信公众号「闹闹吃鱼」，每天都有好分享"><span class="toc-text">扫描关注微信公众号「闹闹吃鱼」，每天都有好分享</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
