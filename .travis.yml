@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-    - "10.15.3"
+    - "11.12.0"
 
 sudo: false
 
@@ -20,20 +20,18 @@ notifications:
   # 邮件发送部署结果通知
   email:
     recipients:
-      - AdolfYin@gmail.com
-    on_success: always
+      - snippet@91h5.cc
+    on_success: change
     on_failure: always
 
 # S: Build Lifecycle
 before_install:
   - sudo apt-get install libnotify-bin
-  
-  - gem install travis
 
 install:
   - npm install
-  #- gem install travis
-  - travis login --pro --github-token ${REPO_TOKEN}
+#  - gem install travis
+#  - travis login --pro --github-token ${GH_TOKEN}
 
 before_script:
   - export TZ='Asia/Shanghai'
@@ -42,43 +40,22 @@ before_script:
 
 script:
   - hexo clean && hexo g
-  - gulp # 重新生成主题
+  - gulp
 
 after_success:
- #- git clone https://${GITHUB_URL} .deploy_git
- #- cd .deploy_git
- #- git checkout master
- #- cp -rf ../public/* ./
- ## 必要配置文件 
- #- cp -rf ../README.md ../.gitignore ../CNAME ../index.php ./
- ## 更改 .gitignore 内容，与 source 分支的不一样，直接置空，目前没有需要过滤的 
- #- echo "" > ./.gitignore
- #- git add .
- ## 提交记录包含时间，跟上面更改时区配合 
- #- git commit -m "Travis CI Auto Builder at `date +"% Y-% m-% d % H:% M"`"
- ## 推送到主分支 
- #- git push --force --quiet "https://${REPO_TOKEN}@${GITHUB_URL}" master:master
- 
- #- git config --global user.name "${USER_NAME}"
- #- git config --global user.email "${USER_EMAIL}"
- hexo deploy
- 
- #  是在Travis中配置token的名称
  # - LAST_BUILD_NUMBER=68
  # - for i in $(seq 1 $LAST_BUILD_NUMBER ); do  travis logs $i --delete --force ; done
 
 after_script:
- #- ./_travis.sh
-
+  - ./_travis.sh
 
 # E: Build LifeCycle
 
-# 设置只监听哪个分支 
 branches:
   only:
-    - source
+    - dev
 env:
  global:
-   #- GH_REF: github.com/shenliyang/shenliyang.github.io.git
-   #- GITEE_REF: gitee.com/shenliyang/shenliyang.git
+   - GH_REF: github.com/shenliyang/shenliyang.github.io.git
+   - GITEE_REF: gitee.com/shenliyang/shenliyang.git
 

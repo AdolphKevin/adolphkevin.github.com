@@ -21,7 +21,7 @@ function failure(){
 #默认执行
 function default(){
 
-  git clone https://${GH_REF} .deploy_git
+  git clone https://${GITHUB_URL} .deploy_git
   cd .deploy_git
 
   git checkout master
@@ -45,21 +45,21 @@ Job NUM  | $TRAVIS_JOB_NUMBER |
 EOF
 
   git init
-  git config user.name "shenliyang"
-  git config user.email ""
+  git config user.name "NaoNao"
+  git config user.email "AdolphKevin@outlook.com"
   git add .
   git commit -m "Update Blog By TravisCI With Build $TRAVIS_BUILD_NUMBER"
   # Github Pages
-  git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+  git push --force --quiet "https://${REPO_TOKEN}@${GITHUB_URL}" master:master
   # Gitee Pages
-  git push --force --quiet "https://shenliyang:${GITEE_TOKEN}@${GITEE_REF}" master:master
+  # git push --force --quiet "https://shenliyang:${REPO_TOKEN}@${GITEE_REF}" master:master
 
   # Create Tag
   git tag v1.2.$TRAVIS_BUILD_NUMBER -a -m "Auto Taged By TravisCI With Build $TRAVIS_BUILD_NUMBER"
   # Github Pages
-  git push --quiet "https://${GH_TOKEN}@${GH_REF}" master:master --tags
+  git push --quiet "https://${REPO_TOKEN}@${GITHUB_URL}" master:master --tags
   # Gitee Pages
-  git push --quiet "https://shenliyang:${GITEE_TOKEN}@${GITEE_REF}" master:master --tags
+  # git push --quiet "https://shenliyang:${REPO_TOKEN}@${GITEE_REF}" master:master --tags
 }
 
 case $1 in
