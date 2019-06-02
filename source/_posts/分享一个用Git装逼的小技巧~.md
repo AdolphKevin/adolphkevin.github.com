@@ -2,6 +2,7 @@
 title: 分享一个用Git装逼的小技巧~
 tags: Git
 categories: Git教程
+abbrlink: 8780
 ---
 ![](https://upload-images.jianshu.io/upload_images/15072499-0e0cecc41d7e602b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
