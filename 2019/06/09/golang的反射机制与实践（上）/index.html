@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="闹闹吃鱼">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://AdolphKevin.github.io">
+    <!--SEO-->
+
+    <meta name="keywords" content="反射">
+
+
+    <meta name="description" content="
+反射机制是一个很重要的内容，当我们写框架的时候，要想要松耦合，高复用，那么就有很多地方都需要用到反射，可谓是中高级程序员必须掌握的知识点
+很多后台语言都有反射机制，但它们的使用原理大多都是一样...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>golang的反射机制与实践（上） | 闹闹吃鱼</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="闹闹吃鱼" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="闹闹">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://AdolphKevin.github.io">闹闹吃鱼</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="golang的反射机制与实践（上）">
+            
+	            golang的反射机制与实践（上）
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/golang/">golang</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/反射/">反射</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/06/09</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g3xzl0lw59j30hn0dgdl9.jpg" alt></p>
+<p>反射机制是一个很重要的内容，当我们写框架的时候，要想要松耦合，高复用，那么就有很多地方都需要用到反射，可谓是中高级程序员必须掌握的知识点</p>
+<p>很多后台语言都有反射机制，但它们的使用原理大多都是一样的</p>
+<p>各语言不同的地方，大致就是代码实现方式不一致罢了</p>
+<p><strong>其根本，都是从变量得到反射对象，再由反射对象去操作原变量</strong></p>
+<p>好了，步入正题</p>
+<h2 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h2><p>我就用一句话来概括吧</p>
+<p><strong>使用反射，可以让我们在程序运行时对任意类型的对象进行操作</strong></p>
+<p>注意操作这两个字，操作是指：可以获取对象的信息、改变对象的值、调用对象的方法、甚至是创建一个对象</p>
+<p>说到这你可能有点困惑，我们在编写代码的时候不就已经把该实例化的象进行了实例化，该调用的方法都调用了嘛？为什么写程序的时候不调用方法，偏要在运行时去进行这些操作？</p>
+<p>其实问题就在这里，如果我们在写程序的时候，一切的对象与方法都能够确定了，那还要反射做什么？</p>
+<p>正是因为我们在写程序的时候，要想写一些“万能程序”，用于降低代码的耦合度，所以我们才需要反射，用于处理一些未知的对象</p>
+<p>想想，当我们写一个方法，不管别人往我们这个方法内传入什么样的参数，最后我们的函数都能给别人所需要的内容。是不是感觉很牛逼？</p>
+<h2 id="反射的使用原理"><a href="#反射的使用原理" class="headerlink" title="反射的使用原理"></a>反射的使用原理</h2><p>我这里主要说使用反射的原理，并不是刨析反射的底层原理，有兴趣想要探索原理的读者大人，可以去看看go的reflect包源码</p>
+<p>先给你们上个图，看懂这个关系图，后面的文字基本也就可以不看了</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/12/16b48b7578b23a34?w=614&amp;h=415&amp;f=jpeg&amp;s=97836" alt></p>
+<p>没看懂没关系，稍微解释就能明白~~</p>
+<p>我们定义的一个变量，不管是基本类型<code>int</code>，还是一个结构体<code>Employee</code>，我们都可以通过<code>reflect.TypeOf()</code>获取他的反射类型<code>Type</code>，也可以通过<code>reflect.ValueOf()</code>去获取他的反射值<code>Value</code></p>
+<p><strong>我们学习反射，其实就是学习如何使用原变量，去取得<code>reflect.Type</code>或者<code>reflect.Value</code>这种反射对象；再使用这个反射对象<code>Type</code>以及<code>Value</code>，反过来对原变量进行操作</strong></p>
+<p>弄明白了这个道理，那一切都将变得简单</p>
+<p>剩下的，我们只是需要去学习<code>reflect</code>包中提供的方法。当我们需要要怎么操作变量，就使用其提供的对应方法即可</p>
+<h2 id="反射的注意事项与细节"><a href="#反射的注意事项与细节" class="headerlink" title="反射的注意事项与细节"></a>反射的注意事项与细节</h2><h4 id="Type与Kind的区别是什么？"><a href="#Type与Kind的区别是什么？" class="headerlink" title="Type与Kind的区别是什么？"></a><code>Type</code>与<code>Kind</code>的区别是什么？</h4><p><code>Type</code>是类型，<code>Kind</code>是类别，听起来有点绕，<strong>他们之间的关系为<code>Type</code>是<code>Kind</code>的子集</strong></p>
+<p>如果变量是基本类型，那么<code>Type</code>与<code>Kind</code>得到的结果是一致的，比如变量为<code>int</code>类型，<code>Type</code>与<code>Kind</code>的值相等，都为<code>int</code></p>
+<p>但当变量为结构体时，<code>Type</code>与<code>Kind</code>的值就不一样了</p>
+<p>我们来看个实际案例<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> emp Employee</span><br><span class="line">	emp = Employee&#123;</span><br><span class="line">		Name: <span class="string">"naonao"</span>,</span><br><span class="line">		Age:  <span class="number">99</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	rVal := reflect.ValueOf(emp)</span><br><span class="line">	log.Printf(<span class="string">"Kind is %v ,Type is %v"</span>,</span><br><span class="line">		rVal.Kind(),</span><br><span class="line">		rVal.Type())</span><br><span class="line">	<span class="comment">// Kind is struct ,Type is main.Employee</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，<code>Kind</code>的值是<code>struct</code>,而<code>Type</code>的值是<code>包名.Employee</code></p>
+<h4 id="反射如何在变量与reflect-Value之间切换？"><a href="#反射如何在变量与reflect-Value之间切换？" class="headerlink" title="反射如何在变量与reflect.Value之间切换？"></a>反射如何在变量与<code>reflect.Value</code>之间切换？</h4><p>变量可以转换成<code>interface{}</code>之后，再转换成<code>reflect.Value</code>类型，既然空接口可以转换成<code>Value</code>类型，那么自然也可以反过来转换成变量</p>
+<p>用个表达式来表示，就如下所示</p>
+<blockquote>
+<p>变量<----->interface{}<----->reflect.Value</-----></-----></p>
+</blockquote>
+<p>利用空接口来进行中转，这样<code>变量</code>与<code>Value</code>之间就可以实现互相转换了</p>
+<p>下面我们再说如何用代码实现转换</p>
+<h4 id="如何使用反射获取变量本身的值？"><a href="#如何使用反射获取变量本身的值？" class="headerlink" title="如何使用反射获取变量本身的值？"></a>如何使用反射获取变量本身的值？</h4><p>这里我们要注意一下，<code>reflect.ValueOf()</code>得到的值是<code>reflect.Value</code>类型，并不是变量本身的值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">1</span></span><br><span class="line">rVal := reflect.ValueOf(num)</span><br><span class="line">log.Printf(<span class="string">"num is %v"</span>, num + rVal)</span><br></pre></td></tr></table></figure>
+<p>这段代码会报错<code>invalid operation: num + rVal (mismatched types int and reflect.Value)</code></p>
+<p>很明显，<code>rVal</code>是属于<code>reflect.Value</code>类型，不能与<code>int</code>类型相加</p>
+<p>那怎样才能获得它本身的值呢？</p>
+<p><strong>如果是基本类型</strong>，比如<code>var num int</code>,那么使用<code>reflect</code>包里提供的转换方法即可<code>reflect.ValueOf(num).Int()</code></p>
+<p>或者是<code>float</code>，那就调用<code>reflect.ValueOf(num).float()</code>，如果是其它的基本类型，需要的时候去文档里面找找即可</p>
+<p>但<strong>如果是我们自己定义的结构体</strong>，因为<code>reflect</code>包无法确定我们自己定义了什么结构体，所以本身并不会带有结构体转换的方法，那么我们只能<strong>通过类型断言来进行转换</strong></p>
+<p><strong>也就是上面说的，利用空接口进行中转，再利用断言进行类型转换</strong>，可以看如下代码示例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Employee 员工</span></span><br><span class="line"><span class="keyword">type</span> Employee <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span></span><br><span class="line">	Age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	emp := &amp;Employee&#123;</span><br><span class="line">		Name: <span class="string">"naonao"</span>,</span><br><span class="line">		Age:  <span class="number">99</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	reflectPrint(emp)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reflectPrint</span><span class="params">(v <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	rVal := reflect.ValueOf(v)   <span class="comment">// 获取reflect.Value</span></span><br><span class="line">	iV := rVal.Interface()       <span class="comment">// 利用空接口进行中转</span></span><br><span class="line">	empVal, ok := iV.(*Employee) <span class="comment">// 利用断言转换</span></span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		<span class="comment">// 如果成功转换则打印结构体</span></span><br><span class="line">		log.Print(empVal)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我只是进行了一个简单的判断，如果想要进行完整的判断，还是需要借助<code>swith</code>语句，下篇会提到。也可以参照<code>reflect</code>包的单元测试文件</p>
+<h4 id="通过反射来修改变量"><a href="#通过反射来修改变量" class="headerlink" title="通过反射来修改变量"></a>通过反射来修改变量</h4><p>先来看看代码如何实现</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> num = <span class="number">1</span></span><br><span class="line">	modifyValue(&amp;num)<span class="comment">// 传递地址</span></span><br><span class="line">	log.Printf(<span class="string">"num is %v"</span>, num)<span class="comment">// num is 20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">modifyValue</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	rVal := reflect.ValueOf(i)</span><br><span class="line">	rVal.Elem().SetInt(<span class="number">20</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>细心的你肯定发现了一点异常，函数接收的参数不再是值了，而是接受了一个指针地址</p>
+<p>改变值的时候，先调用了<code>Elem()</code>方法，再进行了一个<code>SetInt()</code>的操作</p>
+<p>为什么直接传值不行呢？<strong>因为<code>reflect</code>包中提供的所有修改变量值的方法，都是对指针进行的操作</strong></p>
+<p>那为什么还要先使用<code>Elem()</code>呢？因为<code>Elem()</code>的作用，就是取得指针地址所对应的值，取到值了，我们才能对值进行修改</p>
+<p>总不可能连值都没拿到手，就想着去改值吧？</p>
+<h4 id="如何理解reflect-Value-Elem"><a href="#如何理解reflect-Value-Elem" class="headerlink" title="如何理解reflect.Value.Elem()"></a>如何理解reflect.Value.Elem()</h4><p>关于<code>Elem()</code>的使用可以简单的理解为<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num := <span class="number">1</span></span><br><span class="line">prt *<span class="keyword">int</span> := &amp;num <span class="comment">// 获取num的指针地址</span></span><br><span class="line">num2 := *ptr <span class="comment">// 从指针处取值</span></span><br></pre></td></tr></table></figure></p>
+<p>因为我们传递了一个地址，所以我们要先拿到这个地址的指针，再通过指针去取得所对应的值</p>
+<p><code>reflect</code>包底层实现就是基于这个原理，不过它的底层代码加了较多的判断，用来保证稳定性  </p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>这篇先说些基础概念，下篇我们再从实践出发，看看在什么地方需要使用反射，又该如何使用<code>reflect</code>包提供的方法去实现</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/6/12/16b48b7578c16c55?w=382&amp;h=359&amp;f=jpeg&amp;s=59049" alt></p>
+<h4 id="微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪"><a href="#微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪" class="headerlink" title="微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪"></a>微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪</h4>
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">闹闹吃鱼</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/06/02/如何才能写出正确的程序？/" class="next-post btn btn-default" title="彻底弄懂二分查找法，明确边界的意义">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">彻底弄懂二分查找法，明确边界的意义</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xl6g1Q7kvS1x15q1q777Ig4V-gzGzoHsz',
+            appKey: 'uVeUIqfE7bmut1PrMA6VMVGo',
+            placeholder: '一起high呀~可以使用markdown语法哦！',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是反射"><span class="toc-text">什么是反射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射的使用原理"><span class="toc-text">反射的使用原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射的注意事项与细节"><span class="toc-text">反射的注意事项与细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Type与Kind的区别是什么？"><span class="toc-text">Type与Kind的区别是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#反射如何在变量与reflect-Value之间切换？"><span class="toc-text">反射如何在变量与reflect.Value之间切换？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何使用反射获取变量本身的值？"><span class="toc-text">如何使用反射获取变量本身的值？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过反射来修改变量"><span class="toc-text">通过反射来修改变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何理解reflect-Value-Elem"><span class="toc-text">如何理解reflect.Value.Elem()</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-text">写在最后</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪"><span class="toc-text">微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪</span></a></li></ol></li>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
