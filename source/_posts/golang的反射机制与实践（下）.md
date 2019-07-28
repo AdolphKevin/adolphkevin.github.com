@@ -113,7 +113,7 @@ func TestGetStruct(t *testing.T) {
 
 获取`tag`标签的用处就是对我们的结构体进行序列化时使用，将结构体的字段名变成我们需要的别名
 
-可以参考下`encoding/json`包的使用方式
+想深入了解的童鞋，可以参考下`encoding/json`包的使用方式
 
 ## 获取并调用结构体的方法
 
