@@ -221,8 +221,8 @@
 <p>因为我们传递了一个地址，所以我们要先拿到这个地址的指针，再通过指针去取得所对应的值</p>
 <p><code>reflect</code>包底层实现就是基于这个原理，不过它的底层代码加了较多的判断，用来保证稳定性  </p>
 <h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>这篇先说些基础概念，下篇我们再从实践出发，看看在什么地方需要使用反射，又该如何使用<code>reflect</code>包提供的方法去实现</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/6/12/16b48b7578c16c55?w=382&amp;h=359&amp;f=jpeg&amp;s=59049" alt></p>
-<h4 id="微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪"><a href="#微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪" class="headerlink" title="微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪"></a>微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪</h4>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pbxlmfqbj306008f0t1.jpg" alt></p>
+<h2 id="微信扫码关注公众号「闹闹吃鱼」，每周都有好分享"><a href="#微信扫码关注公众号「闹闹吃鱼」，每周都有好分享" class="headerlink" title="微信扫码关注公众号「闹闹吃鱼」，每周都有好分享"></a>微信扫码关注公众号「闹闹吃鱼」，每周都有好分享</h2>
     </div>
     
     <div class="post-footer">
@@ -290,7 +290,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是反射"><span class="toc-text">什么是反射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射的使用原理"><span class="toc-text">反射的使用原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射的注意事项与细节"><span class="toc-text">反射的注意事项与细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Type与Kind的区别是什么？"><span class="toc-text">Type与Kind的区别是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#反射如何在变量与reflect-Value之间切换？"><span class="toc-text">反射如何在变量与reflect.Value之间切换？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何使用反射获取变量本身的值？"><span class="toc-text">如何使用反射获取变量本身的值？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过反射来修改变量"><span class="toc-text">通过反射来修改变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何理解reflect-Value-Elem"><span class="toc-text">如何理解reflect.Value.Elem()</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-text">写在最后</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪"><span class="toc-text">微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再无头绪</span></a></li></ol></li>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是反射"><span class="toc-text">什么是反射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射的使用原理"><span class="toc-text">反射的使用原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射的注意事项与细节"><span class="toc-text">反射的注意事项与细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Type与Kind的区别是什么？"><span class="toc-text">Type与Kind的区别是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#反射如何在变量与reflect-Value之间切换？"><span class="toc-text">反射如何在变量与reflect.Value之间切换？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何使用反射获取变量本身的值？"><span class="toc-text">如何使用反射获取变量本身的值？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过反射来修改变量"><span class="toc-text">通过反射来修改变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何理解reflect-Value-Elem"><span class="toc-text">如何理解reflect.Value.Elem()</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-text">写在最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微信扫码关注公众号「闹闹吃鱼」，每周都有好分享"><span class="toc-text">微信扫码关注公众号「闹闹吃鱼」，每周都有好分享</span></a></li>
         
     </div>
 </aside>

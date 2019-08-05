@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="闹闹吃鱼">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://AdolphKevin.github.io">
+    <!--SEO-->
+
+    <meta name="keywords" content="Restful">
+
+
+    <meta name="description" content="今天我们看看用Go语言如何实现Restful规范的接口，过两天再从今天的这个实践出发，去了解理论知识
+Restful API的思路API的具体实现首先安装mux包1go get -u githu...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>用Go语言写一个简单的Restful接口 | 闹闹吃鱼</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="闹闹吃鱼" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="闹闹">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://AdolphKevin.github.io">闹闹吃鱼</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="用Go语言写一个简单的Restful接口">
+            
+	            用Go语言写一个简单的Restful接口
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/golang/">golang</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Restful/">Restful</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/30</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>今天我们看看用Go语言如何实现Restful规范的接口，过两天再从今天的这个实践出发，去了解理论知识</p>
+<h2 id="Restful-API的思路"><a href="#Restful-API的思路" class="headerlink" title="Restful API的思路"></a>Restful API的思路</h2><h2 id="API的具体实现"><a href="#API的具体实现" class="headerlink" title="API的具体实现"></a>API的具体实现</h2><p>首先安装<code>mux</code>包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/gorilla/mux</span><br></pre></td></tr></table></figure></p>
+<p><code>mux</code>包主要是用于执行HTTP路由的请求和分配</p>
+<p>安装成功后就可以开始进行我们的<code>Restful</code>接口的实现咯</p>
+<p>先说明一下，因为只是实现一个<code>Restful</code>规范的接口用于练习，所以我们所有的代码都是放在主程序入口<code>main.go</code>之中</p>
+<h4 id="实现结构体"><a href="#实现结构体" class="headerlink" title="实现结构体"></a>实现结构体</h4><p>先实现一个结构体，用于存放我们的数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person 人</span></span><br><span class="line"><span class="comment">// 有了omitempty后，如果字段内容为空， 则生成的json中则没有该字段</span></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	ID      <span class="keyword">string</span>   <span class="string">`json:"id,omitempty"`</span></span><br><span class="line">	Name    <span class="keyword">string</span>   <span class="string">`json:"name,omitempty"`</span></span><br><span class="line">	Address *Address <span class="string">`json:"address,omitempty"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Address 地址</span></span><br><span class="line"><span class="keyword">type</span> Address <span class="keyword">struct</span> &#123;</span><br><span class="line">	City  <span class="keyword">string</span> <span class="string">`json:"city,omitempty"`</span></span><br><span class="line">	State <span class="keyword">string</span> <span class="string">`json:"state,omitempty"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结构体字段标签的<code>omitempty</code>意味着序列化时忽略0值或空值，练习的时候可加可不加，再项目中运用时就全看项目要求了</p>
+<h4 id="API的实现"><a href="#API的实现" class="headerlink" title="API的实现"></a>API的实现</h4><p>结构体定义好后，我们再来写一个<code>API</code>，用于处理用户的请求</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// GetPerson 获取Person</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetPerson</span><span class="params">(w http.ResponseWriter, req *http.Request)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 获取参数</span></span><br><span class="line">	params := mux.Vars(req)</span><br><span class="line">	<span class="keyword">for</span> _, item := <span class="keyword">range</span> people &#123;</span><br><span class="line">		<span class="keyword">if</span> item.ID == params[<span class="string">"id"</span>] &#123;</span><br><span class="line">            <span class="comment">// 以json格式将结构体回写</span></span><br><span class="line">			json.NewEncoder(w).Encode(item)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 没有查询到对应ID，返回一个空的结构体</span></span><br><span class="line">	json.NewEncoder(w).Encode(&amp;Person&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好啦，定义好一个<code>API</code>后，我们就可以开始写<code>main</code>函数来处理HTTP请求啦</p>
+<p>内容和实现方式都放在注释里啦</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个全局数组，用于存储结构体数据</span></span><br><span class="line"><span class="keyword">var</span> people []Person</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 初始化路由</span></span><br><span class="line">	router := mux.NewRouter()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 向people中添加一些数据</span></span><br><span class="line">	people = <span class="built_in">append</span>(people, Person&#123;ID: <span class="string">"1"</span>, Name: <span class="string">"闹闹"</span>, Address: &amp;Address&#123;City: <span class="string">"苏杭"</span>, State: <span class="string">"1"</span>&#125;&#125;)</span><br><span class="line">	people = <span class="built_in">append</span>(people, Person&#123;ID: <span class="string">"2"</span>, Name: <span class="string">"闹闹吃鱼"</span>, Address: &amp;Address&#123;City: <span class="string">"地球"</span>, State: <span class="string">"2"</span>&#125;&#125;)</span><br><span class="line">	people = <span class="built_in">append</span>(people, Person&#123;ID: <span class="string">"1"</span>, Name: <span class="string">"naonao"</span>, Address: &amp;Address&#123;City: <span class="string">"emmm"</span>, State: <span class="string">"3"</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理并分派路由请求</span></span><br><span class="line">    <span class="comment">// GET请求</span></span><br><span class="line">	router.HandleFunc(<span class="string">"/people"</span>, GetPeople).Methods(<span class="string">"GET"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 监听端口</span></span><br><span class="line">	err := http.ListenAndServe(<span class="string">":8888"</span>, router)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">闹闹吃鱼</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/08/06/小公司的坑，能躲一个是一个！/" class="pre-post btn btn-default" title="小公司的坑，能躲一个是一个！">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">小公司的坑，能躲一个是一个！</span>
+        </a>
+    
+    
+        <a href="/2019/07/29/面试前该关注公司什么？/" class="next-post btn btn-default" title="面试前该关注企业哪方面信息才不会后悔？">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">面试前该关注企业哪方面信息才不会后悔？</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xl6g1Q7kvS1x15q1q777Ig4V-gzGzoHsz',
+            appKey: 'uVeUIqfE7bmut1PrMA6VMVGo',
+            placeholder: '一起high呀~可以使用markdown语法哦！',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Restful-API的思路"><span class="toc-text">Restful API的思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API的具体实现"><span class="toc-text">API的具体实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现结构体"><span class="toc-text">实现结构体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#API的实现"><span class="toc-text">API的实现</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
