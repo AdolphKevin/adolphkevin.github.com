@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="闹闹吃鱼">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://AdolphKevin.github.io">
+    <!--SEO-->
+
+    <meta name="keywords" content="VsCode">
+
+
+    <meta name="description" content="
+前几天我聊了聊我自己从一个什么都不懂的小白，到现在只懂一点的学习历程
+所谓万事开头难，学习Go语言最难的时候，也就是咱们啥都不知道的时候
+之前我说了我学Go语言入门花了好几个晚上，这个时间不是...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>在VsCode中搭建Go开发环境，手把手教你配置 | 闹闹吃鱼</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="闹闹吃鱼" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="闹闹">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://AdolphKevin.github.io">闹闹吃鱼</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="在VsCode中搭建Go开发环境，手把手教你配置">
+            
+	            在VsCode中搭建Go开发环境，手把手教你配置
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/golang/">golang</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/VsCode/">VsCode</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/18</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd20bhroj30h90d9ag1.jpg" alt></p>
+<p>前几天我聊了聊我自己从一个什么都不懂的小白，到现在只懂一点的学习历程</p>
+<p>所谓万事开头难，学习Go语言最难的时候，也就是咱们啥都不知道的时候</p>
+<p>之前我说了我学Go语言入门花了好几个晚上，这个时间不是花费在学习Go语言语法上，而是花在了搭建环境上…<strong>这篇文，我把我当初所有踩的坑都写到了</strong></p>
+<p>我自己的开发环境是Windows 10 +VS Code ，都知道VS Code是一个可以让开发者自己高度定制化的编译器，而也正是因为这一点，从0开始搭建一个开发环境简直是累的一匹</p>
+<p>之前有好些个童鞋来私聊我，问我编译器选择和配置的事情，我都是推荐使用VsCode，那<strong>今天就说说怎么把VSCode配置成Golang的编译器吧</strong></p>
+<p>因为我手上只有Windows的电脑，所以就只能说下Windows环境如何配置了</p>
+<h2 id="Golang的安装"><a href="#Golang的安装" class="headerlink" title="Golang的安装"></a>Golang的安装</h2><p>先去官网上下载Golang的安装包：<a href="https://golang.org/dl/" target="_blank" rel="noopener">点击访问下载地址</a></p>
+<p>Windows的安装就很简单了，打开安装包后，一直Next就好了。安装时记好自己的安装路径，我自己就默认安装到C盘了</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd2a730nj30ks03cq2z.jpg" alt></p>
+<p>安装好Go安装包后，需要配置环境变量，印象中记得Go在1.6版本后，这些环境变量都不需要我们手动配置了，安装的时候都会自动配置好</p>
+<p>不过为了避免你们有些人进行了一些蛇皮操作，导致安装包没有自动配置环境变量，我这还是简单唠嗑一下环境变量的配置吧（已经配置好了就不用看了，直接看下一部分吧）</p>
+<h2 id="Go环境变量配置"><a href="#Go环境变量配置" class="headerlink" title="Go环境变量配置"></a>Go环境变量配置</h2><p>所谓千言万语不如一张图，给你们截了图，也在图上做了标注，按着图片上的步骤来就好了，简单又明了</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd2lrnbpj311u0igthq.jpg" alt></p>
+<p>配置<code>GOPATH</code>的的时候，可以看到下图，我路径设为了<code>E</code>盘，是因为<code>GOPATH</code>是我们的工作区，说白了就是我们做项目时放代码的地方，所以自己随便设置就好了</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd2s5kqzj30gl09l74m.jpg" alt></p>
+<p>如果要变更<code>GOPATH</code>的路径，建议把原来<code>GOPATH</code>里的<code>pkg</code>、<code>bin</code>、<code>src</code>三个文件夹也复制过去，不然到时候我们开发时又要重新配置依赖包，不知情的你，可能还认为出BUG了呢</p>
+<p><code>GOROOT</code>是Go的安装路径，<code>Path</code>变量里的选择安装路径里的<code>bin</code>文件路径就好了</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd2zeh5pj30oh0g20ut.jpg" alt></p>
+<h2 id="配置Go开发环境"><a href="#配置Go开发环境" class="headerlink" title="配置Go开发环境"></a>配置Go开发环境</h2><p>我是提倡使用VSCode，所以也就只说VSCode了，如果你们热爱别的编译器，那我在这也只能告诉你如何安装Go的依赖包了…</p>
+<p>打开我们的VSCode，安装<code>Go</code>插件，就这一个就可以了</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd377hdlj30k60a00uv.jpg" alt></p>
+<p>好像没有梯子还不给下载，如果安装失败会提示你从网页上去下载到本地安装。<strong>以防万一你们下载不了，我把这个插件下载好打包放在公众号里了，你们直接在我公众号后台回复「插件」就可以拿到下载地址</strong></p>
+<h2 id="安装Go的依赖包"><a href="#安装Go的依赖包" class="headerlink" title="安装Go的依赖包"></a>安装Go的依赖包</h2><p>兴致勃勃的打开了编译器，刚准备写个<code>Hello World</code>震惊世界的，结果第一行<code>package</code>都还没有写完，VSCode就给我这个提示……</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd3dcy9ej30d4085t93.jpg" alt></p>
+<p>天真的你一而再再而三的点<code>Install All</code>，放心，不管用的，咱家的墙比天还高，搭梯子也翻不过去</p>
+<p>不信？你看呗</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd3ljyhzj30f0084q39.jpg" alt></p>
+<p>看到各种Failed，心里一万匹什么来着？不管了，反正就是万马奔腾吧</p>
+<p>那咋办？就这样不管了？还没入门就放弃？</p>
+<p>放心吧，有闹闹我在，怎么说今天也得让你用VSCode写个<code>Hello Word</code>爽爽</p>
+<p>当<code>go get</code>不好使的时候，<strong>咱们就先去Github上把需要的package下载到本地，建议用Git把包给<code>Clone</code>下来，以后包有更新了，直接<code>pull</code>就可以更新</strong>，再把包给重新安装一次就好了</p>
+<p><strong>此时VSCode提示的<code>Failed</code>就有用了</strong>，比如提示了<code>Installing github.com/ramya-rao-a/go-outline FAILED</code>，我们直接把网址复制下来放到浏览器，就可以看到这个Github的仓库</p>
+<p>拿到下载链接后直接<code>clone</code>到本机上</p>
+<p><strong>下载好了放哪里呢？放<code>GOPATH</code>的<code>src</code>路径下面或者<code>GO ROOT</code>的<code>src</code>下都可以</strong></p>
+<p>只是<strong>文件夹命名要按照网址路径命名，这点一定要注意</strong>，如果不明白，下面我有举例说明</p>
+<p>像<code>golang.org/x/tools/cmd/guru</code>这种不是在Github上的怎么搞？其实跟放在Github上的包下载是一样的操作，直接把这段链接放到浏览器里就可以打开网站，网站里面会有下载地址的，如下图</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd3slqucj30or0bigmf.jpg" alt></p>
+<p><strong>如果不知道自己的<code>GOPATH</code>或者<code>GOROOT</code>路径在哪里</strong>，可以按<code>win+R</code>键，输入<code>cmd</code>，打开「命令提示符」输入<code>go env</code>，即可看到自己的<code>GOPATH</code>路径以及<code>GOROOT</code>路径。也可以像文章开篇那样，跑去环境变量配置的地方找</p>
+<p>好了，拿个实际案例跟你们说说，以刚刚<code>github.com/ramya-rao-a/go-outline</code>这个包为例</p>
+<p>打开链接<code>github.com/ramya-rao-a/go-outline</code></p>
+<p>将这个包<code>clone</code>到本地的<code>GO PATH</code>路径下（我是放在<code>GO PATH</code>路径下的，你们若是不想<code>GO PATH</code>内存在与自己项目无关的文件，可以放在<code>GO ROOT</code>路径下）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/ramya-rao-a/go-outline.git</span><br></pre></td></tr></table></figure>
+<p>这个<code>package</code>的路径最后是这样的，如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd43111vj30l604qq38.jpg" alt></p>
+<p><strong>悄悄地告诉你</strong>，其实只要在<code>src</code>目录下打开<code>bash</code>执行<code>clone</code>就ok了~哈哈哈哈哈</p>
+<p>依赖包都下载好后，就可以进行安装了。可以在<code>CMD</code>中，或者直接在VSCode里按<code>Ctrl + `</code>打开<code>TERMINAL</code>进行安装。</p>
+<p>输入<code>go install</code>命令，执行<code>pkg</code>的安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">go install golang.org/x/tools/go/gcexportdata</span><br><span class="line">go install github.com/mdempsky/gocode</span><br><span class="line">go install golang.org/x/tools/cmd/guru</span><br><span class="line">go install golang.org/x/tools/cmd/gorename</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>说到这，我想也差不多了，<strong>剩下的我相信你们自己也能搞定</strong>，毕竟我想让你们知道该怎么弄，这样以后你们要使用其它的第三方依赖包时，也知道该如何下载安装</p>
+<p><strong>如果实在还没弄明白，可以关注我公众号「闹闹吃鱼」，有什么不明白的我可以为你解答</strong></p>
+<h2 id="Hello-Word"><a href="#Hello-Word" class="headerlink" title="Hello Word"></a>Hello Word</h2><p>好了，编译器已经配置好了，接下来就是我们的<code>Hello Word</code>了</p>
+<p>因为<code>GOPATH</code>是我们的工作区，所以我们自己搭建的项目，也要放在<code>GO PATH</code>的<code>src</code>路径下，文件路径如下图所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd4eeig1j30k603yt8u.jpg" alt></p>
+<p>一切就绪，就差Code~</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"Hello word"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>嗯哼？到这步了，该试试怎么运行了，那就直接运行好了~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go run hello.go</span><br></pre></td></tr></table></figure></p>
+<p>可以看到咱们想要的结果出来了<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](http://ww1.sinaimg.cn/large/007OROpSgy1g5pd5rpbyoj30dq01wq2v.jpg)</span><br><span class="line"></span><br><span class="line">## VS Code配置</span><br><span class="line">用了编译器，还要用命令行来运行程序，那要VS Code干嘛？</span><br><span class="line"></span><br><span class="line">我们熟悉的Debug，按了F5没效啊！还是提示我有问题</span><br></pre></td></tr></table></figure></p>
+<p>那我们就来调整下Debug的配置好了，如下图所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd5lu7lzj30l509st9d.jpg" alt></p>
+<p>launch.json 文件内的内容，将下面的配置全部复制上去就好了~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;LaunchGo&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;go&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;mode&quot;: &quot;auto&quot;,</span><br><span class="line">            &quot;remotePath&quot;: &quot;&quot;,</span><br><span class="line">            &quot;port&quot;: 5546,</span><br><span class="line">            &quot;host&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;fileDirname&#125;&quot;,</span><br><span class="line">            &quot;env&quot;: &#123;</span><br><span class="line">                &quot;GOPATH&quot;: &quot;E:/GoCode&quot;,</span><br><span class="line">                &quot;GOROOT&quot;: &quot;C:/Program Files/Go&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;args&quot;: [],</span><br><span class="line">            //&quot;showLog&quot;: true</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置好后，我们在<code>hello.go</code>文件内，直接按F5就能进入调试状态啦~</p>
+<p>为了让你们在编写Go项目时有跟我一样的良好体验，我把我Vs Code的设置也拿给你们</p>
+<p>下面这张图是如何打开<code>setting.json</code>文件</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pd4zinekj30hd0f73zi.jpg" alt></p>
+<p>打开之后把下面的内容全部Copy进去就好了，其中的<code>go.goroot</code>与<code>go.gopath</code>，你需要改成你自己的Go环境路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;editor.wordWrap&quot;: &quot;on&quot;,</span><br><span class="line">    &quot;editor.minimap.renderCharacters&quot;: false,</span><br><span class="line">    &quot;editor.minimap.enabled&quot;: false,</span><br><span class="line">    &quot;terminal.external.osxExec&quot;: &quot;iTerm.app&quot;,</span><br><span class="line">    //&quot;go.useLanguageServer&quot;: true,</span><br><span class="line">    &quot;go.docsTool&quot;: &quot;gogetdoc&quot;,</span><br><span class="line">    &quot;go.testFlags&quot;: [&quot;-v&quot;,&quot;-count=1&quot;],</span><br><span class="line">    &quot;go.buildTags&quot;: &quot;&quot;,</span><br><span class="line">    &quot;go.buildFlags&quot;: [],</span><br><span class="line">    &quot;go.lintFlags&quot;: [],</span><br><span class="line">    &quot;go.vetFlags&quot;: [],</span><br><span class="line">    &quot;go.coverOnSave&quot;: false,</span><br><span class="line">    &quot;go.useCodeSnippetsOnFunctionSuggest&quot;: false,</span><br><span class="line">    &quot;go.formatTool&quot;: &quot;goreturns&quot;,</span><br><span class="line">    &quot;go.gocodeAutoBuild&quot;: false,</span><br><span class="line">    &quot;go.goroot&quot;: &quot;C:\\Program Files\\Go&quot;,</span><br><span class="line">    &quot;go.gopath&quot;: &quot;E:\\GoCode&quot;,</span><br><span class="line">    &quot;go.autocompleteUnimportedPackages&quot;: true,</span><br><span class="line">    &quot;go.formatOnSave&quot;: true,</span><br><span class="line">    &quot;window.zoomLevel&quot;: 0,</span><br><span class="line">    &quot;debug.console.fontSize&quot;: 16,</span><br><span class="line">    &quot;debug.console.lineHeight&quot;: 30,</span><br><span class="line">    &quot;[javascript]&quot;: &#123;</span><br><span class="line">        &quot;editor.defaultFormatter&quot;: &quot;HookyQR.beautify&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;[html]&quot;: &#123;</span><br><span class="line">        &quot;editor.defaultFormatter&quot;: &quot;HookyQR.beautify&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在我们的开发环境都已经配置好了，从现在开始，我们就可以happy的编写我们的Go项目啦~~</p>
+<h2 id="Go语言学习资料分享"><a href="#Go语言学习资料分享" class="headerlink" title="Go语言学习资料分享"></a>Go语言学习资料分享</h2><p>到今天，我手上Go语言的学习资料终于整理完了，<strong>有从入门到实战的Go语言教学视频（嫖的某培训班的视频）</strong></p>
+<p><strong>也有从入门到实战再到精通的一条龙技术书籍</strong></p>
+<p>我是属于比较喜欢看书的，对我来说看书的学习效率比看视频要好，但是有的人基础差了点，还是需要看视频，让人手把手带入门才行。所以帮你们嫖了一个全面并且详细的中文视频教程</p>
+<p>你们都知道的，我给你们分享资源，从来就没有什么套路，退出文章后，在我<strong>公众号后台回复「Go资料」</strong>就可以领取下载链接了</p>
+<p>再吐槽一下，百度网盘这货我是彻底抛弃了，因为就算我开了VIP，你们的下载速度还是慢的一匹，并将经常连接中断。</p>
+<p>想想80kb/s的速度就美滋滋，这速度下载10GB的视频资源，明年应该能下载好吧？</p>
+<p>现在换了别的网盘，下载速度的体验还算是可以的，就是有时效性30天，<strong>要是某天下载链接要是失效了，你们私聊我，我就去维护一下。</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pbxlmfqbj306008f0t1.jpg" alt></p>
+<h2 id="关注公众号「闹闹吃鱼」领取更多资源，不仅仅只是技术"><a href="#关注公众号「闹闹吃鱼」领取更多资源，不仅仅只是技术" class="headerlink" title="关注公众号「闹闹吃鱼」领取更多资源，不仅仅只是技术"></a>关注公众号「闹闹吃鱼」领取更多资源，不仅仅只是技术</h2>
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">闹闹吃鱼</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/05/25/实用且简单的Git教程，5分钟搞定Git/" class="pre-post btn btn-default" title="实用且简单的Git教程，5分钟搞定Git">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">实用且简单的Git教程，5分钟搞定Git</span>
+        </a>
+    
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xl6g1Q7kvS1x15q1q777Ig4V-gzGzoHsz',
+            appKey: 'uVeUIqfE7bmut1PrMA6VMVGo',
+            placeholder: '一起high呀~可以使用markdown语法哦！',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Golang的安装"><span class="toc-text">Golang的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Go环境变量配置"><span class="toc-text">Go环境变量配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置Go开发环境"><span class="toc-text">配置Go开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Go的依赖包"><span class="toc-text">安装Go的依赖包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hello-Word"><span class="toc-text">Hello Word</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Go语言学习资料分享"><span class="toc-text">Go语言学习资料分享</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关注公众号「闹闹吃鱼」领取更多资源，不仅仅只是技术"><span class="toc-text">关注公众号「闹闹吃鱼」领取更多资源，不仅仅只是技术</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
