@@ -345,6 +345,6 @@ Git命令行的操作，使用起来并不复杂，作为开发人员，要是�
 
 `git reset --hard commit_id`根据commit_id回退到指定版本
 
-![](https://upload-images.jianshu.io/upload_images/15072499-bf1cf0945c3963a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://ww1.sinaimg.cn/large/007OROpSgy1g5pbxlmfqbj306008f0t1.jpg)
 
-## 关注微信公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦！
+## 微信扫码关注公众号「闹闹吃鱼」，每周都有好分享

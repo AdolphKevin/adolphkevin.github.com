@@ -305,6 +305,6 @@ func TestCreateStruct(t *testing.T) {
 
 写这篇文章的目的就是让你拿电脑上去编译跑跑，或者什么时候想到要用反射了，可以拿出来瞅瞅，看看什么地方需要用到反射，反射又可以干什么
 
-![image](https://upload-images.jianshu.io/upload_images/15072499-63e24bbd8340aa7a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://ww1.sinaimg.cn/large/007OROpSgy1g5pbxlmfqbj306008f0t1.jpg)
 
-## 微信扫码关注公众号「闹闹吃鱼」，还可领取Go语言学习大礼包，入门到进阶不再了无头绪
+## 微信扫码关注公众号「闹闹吃鱼」，每周都有好分享

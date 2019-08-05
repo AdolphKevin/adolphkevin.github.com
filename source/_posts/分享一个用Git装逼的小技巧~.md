@@ -104,6 +104,6 @@ git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset - %C(y
 
 分享的小技巧什么的，分享的范围你们可以后台留言告诉我你们想要看什么方面的，我就多写写你们想要看的，反正趁着现在关注我的人不多，基本上每个人都能照顾到，现在不压榨我，还等什么时候呢？
 
-![](https://upload-images.jianshu.io/upload_images/15072499-3437bf10840001c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://ww1.sinaimg.cn/large/007OROpSgy1g5pbxlmfqbj306008f0t1.jpg)
 
-#### 扫描关注微信公众号「闹闹吃鱼」，每天都有好分享
+## 微信扫码关注公众号「闹闹吃鱼」，每周都有好分享

@@ -265,6 +265,6 @@ console.log(urlParams.get('product')); // "shirt"
 
 这个接口还提供了更多成熟的方法，比如`keys()`,`Values()`,还有`entries()`，这个接口该怎么使用，直接去看官方文档就好了，用起来还是很虚浮的
 
-![](http://ww1.sinaimg.cn/large/007OROpSgy1g3ipsgp76nj30am09zgm6.jpg)
+![](http://ww1.sinaimg.cn/large/007OROpSgy1g5pbxlmfqbj306008f0t1.jpg)
 
-## 微信扫码关注公众号「闹闹吃鱼」，每周都有好分享，还可领取学习资源哦~不仅仅只是技术！
+## 微信扫码关注公众号「闹闹吃鱼」，每周都有好分享
