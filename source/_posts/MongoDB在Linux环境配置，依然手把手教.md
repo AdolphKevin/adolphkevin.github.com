@@ -1,3 +1,10 @@
+---
+title: MongoDB在Linux环境配置，依然手把手教
+tags: MongoDB部署
+categories: MongoDB
+abbrlink: 30563
+---
+
 ![](http://ww1.sinaimg.cn/large/007OROpSgy1g5rrq1ld5oj30gx0cxae1.jpg)
 
 说实话，本是不想写这种基础篇的，但是我配置的时候网上教程虽然一大把，但大多数都是缺胳膊少腿的，或者描述不详细的，在此我就按我的部署经验，手把手的教一遍
