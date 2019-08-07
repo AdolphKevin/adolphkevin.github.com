@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="闹闹吃鱼">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://AdolphKevin.github.io">
+    <!--SEO-->
+
+    <meta name="keywords" content="MongoDB部署">
+
+
+    <meta name="description" content="
+说实话，本是不想写这种基础篇的，但是我配置的时候网上教程虽然一大把，但大多数都是缺胳膊少腿的，或者描述不详细的，在此我就按我的部署经验，手把手的教一遍
+如果哪里漏了或者有描述不清楚的地方，可以...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>MongoDB在Linux环境配置，依然手把手教 | 闹闹吃鱼</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="闹闹吃鱼" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="闹闹">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://AdolphKevin.github.io">闹闹吃鱼</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="MongoDB在Linux环境配置，依然手把手教">
+            
+	            MongoDB在Linux环境配置，依然手把手教
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/MongoDB/">MongoDB</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/MongoDB部署/">MongoDB部署</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/08/08</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5rrq1ld5oj30gx0cxae1.jpg" alt></p>
+<p>说实话，本是不想写这种基础篇的，但是我配置的时候网上教程虽然一大把，但大多数都是缺胳膊少腿的，或者描述不详细的，在此我就按我的部署经验，手把手的教一遍</p>
+<p>如果哪里漏了或者有描述不清楚的地方，可以联系我，这种基础文章我要么不写，既然写了，那都是打算持续更新的，就像之前的基础文章<a href="https://adolphkevin.github.io/2019/05/18/%E5%9C%A8VsCode%E4%B8%AD%E6%90%AD%E5%BB%BAGo%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%8C%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E9%85%8D%E7%BD%AE/">在VsCode中搭建Go开发环境，手把手教你配置</a></p>
+<p><strong>本文基于MongoDB4.0，CentOS环境搭建部署</strong></p>
+<p>这是篇解决问题的，就不废话了，按着步骤来，咱啥也不用想就能部署</p>
+<h2 id="部署开始"><a href="#部署开始" class="headerlink" title="部署开始"></a>部署开始</h2><p>因为考虑到有的公司部署的Linux服务器不能连接外网，这里以FTP形式将压缩包上传到Linux服务器后解压安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf mongodb-linux-x86_64-3.2.10.tgz     //解压</span><br><span class="line">// 此处需ROOT权限</span><br><span class="line">mv mongodb-linux-x86_64-3.2.10 /usr/local/mongodb      //将解压后的文件移动到指定目录并改名</span><br><span class="line">cd /usr/local/mongoDB/    //切换到移动后的mongoDB目录</span><br></pre></td></tr></table></figure>
+<p>关于可以连接外网安装的话，MongoDB的官网就写的挺不错的，毕竟我也没弄过联网下载，我就不瞎写了</p>
+<p>好了，接着说解压后我们的操作</p>
+<h4 id="创建data目录"><a href="#创建data目录" class="headerlink" title="创建data目录"></a>创建data目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mongodb/    //切换到mongodb</span><br><span class="line">mkdir data  //创建data目录</span><br><span class="line">mkdir data/db     //创建db 目录，用于存储数据库数据</span><br><span class="line">mkdir log    //创建log日志目录，存储日志数据</span><br></pre></td></tr></table></figure>
+<h4 id="config文件配置"><a href="#config文件配置" class="headerlink" title="config文件配置"></a>config文件配置</h4><p>先创建我们的配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mongodb/    //切换到mongodb</span><br><span class="line">mkdir conf  // 创建config文件的目录</span><br><span class="line"></span><br><span class="line">vim conf/mongoDB.conf // 创建并打开conf文件</span><br></pre></td></tr></table></figure></p>
+<p>接着填写我们的Conifg文件配置内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># mongodb config file</span><br><span class="line"></span><br><span class="line">port=27888  #端口</span><br><span class="line">bind_ip= 127.0.0.1,192.168.105.142 #开启外网访问则为0.0.0.0</span><br><span class="line">dbpath=/usr/local/mongoDB/data/db  #数据库存放</span><br><span class="line">logpath=/usr/local/mongoDB/log/mongodb.log #日志文件存放</span><br><span class="line">fork=true #设置后台运行</span><br><span class="line"># auth=true #开启认证</span><br></pre></td></tr></table></figure></p>
+<p>先将auth=true注释，因为新部署的MongoDB还没有创建用户，如果直接开启，将会导致MongoDB无法启动</p>
+<p>所以只要若是想要给MongoDB设置访问权限，在设置好账号密码后，将<code>auth=true</code>取消注释，重新启用下MongoDB即可</p>
+<h4 id="profile配置"><a href="#profile配置" class="headerlink" title="profile配置"></a>profile配置</h4><p>系统profile文件的配置，这是每装一个软件的必备步骤，在profile文件最后面添加环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile  </span><br><span class="line">  </span><br><span class="line">export MONGODB_HOME=/usr/local/mongodb  </span><br><span class="line">export PATH=$PATH:$MONGODB_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>若是不喜欢用<code>vim</code>进行文本添加，也可以使用<code>echo</code>对文件内容的尾行追加内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;export MONGODB_HOME=/usr/local/mongodb&apos; &gt;&gt; /etc/profile</span><br><span class="line"></span><br><span class="line">echo &apos;export PATH=$PATH:$MONGODB_HOME/bin&apos; &gt;&gt; /etc/profile</span><br></pre></td></tr></table></figure></p>
+<p><strong>上述操作二选一即可</strong>，不过都需要重启系统配置才能生效，记住不要重复执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<p>到这一步，MongoDB该安装的该配置的都已经弄好了，接下来我们就需要启动我们的MongoDB</p>
+<h4 id="启动MongoDB"><a href="#启动MongoDB" class="headerlink" title="启动MongoDB"></a>启动MongoDB</h4><p>因为启动参数我们都配置到config中，所以直接以config形式来启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --config ../conf/mongodb.conf</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建用户并分配权限"><a href="#创建用户并分配权限" class="headerlink" title="创建用户并分配权限"></a>创建用户并分配权限</h2><p>在这里我建议使用<code>Studio 3T</code>连接我们的MongoDB服务器来创建用户，没什么别的理由，就是简单​罢了</p>
+<p>先给你们截图操作一下在<code>Studio 3T</code>中我们该怎么设置用户权限</p>
+<p>选择要设置权限的库，添加用户</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5rrqcgn4nj30y90kcdie.jpg" alt></p>
+<p>再给用户分配权限</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5rrqldw23j30ck09wt8t.jpg" alt></p>
+<p>非admin库，用户一般只需要分配<code>readWrite</code>权限即可</p>
+<p>而admin库，我们要留一个管理员账户，分配<code>root</code>权限，以备不时之需。但是正常操作的时候，能不使用有<code>root</code>权限的用户，就不要使用，不仅容易进行一些危险操作，也会导致生成一些只有<code>root</code>用户才能操作的文件。换句话说就是影响数据库的稳定性</p>
+<p>好了，我们再来看看用<code>shell</code>怎么创建用户，这我就创建一个admin下权限为<code>root</code>和<code>userAdminAnyDatabase</code>的用户吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.createUser(</span><br><span class="line">&#123;</span><br><span class="line">	user: &quot;naonao&quot;,</span><br><span class="line">	pwd: &quot;123456&quot;,</span><br><span class="line">	roles:[</span><br><span class="line">            &#123;role:&quot;root&quot;,db:&quot;admin&quot;&#125;</span><br><span class="line">           ,&#123;role:&quot;userAdminAnyDatabase&quot;,db:&quot;admin&quot;&#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，<code>roles</code>里面是一个<code>Json</code>数组，所以如果我们只需要一个权限，<code>roles</code>数组中的元素保留一个即可</p>
+<h4 id="账户密码以及指定端口登陆mongoDB"><a href="#账户密码以及指定端口登陆mongoDB" class="headerlink" title="账户密码以及指定端口登陆mongoDB"></a>账户密码以及指定端口登陆mongoDB</h4><p>采用用户登陆方式之前记得先把MongoDB服务关了，把配置文件内的用户验证<code>auth=true</code>注释取消</p>
+<p>进入<code>mongoDB/bin</code>文件路径下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/mongoDB/bin</span><br></pre></td></tr></table></figure></p>
+<p>然后使用账号密码以及指定对应的端口，来启动我们的MongoDB，如果是默认的27017端口，可以不进行指定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo -u &quot;username&quot; -p &quot;password&quot; -authenticationDatabase &quot;admin&quot; --port 27888</span><br></pre></td></tr></table></figure></p>
+<p>账户默认验证的就是admin，所以如果是属于admin数据库的用户，那么把<code>--authenicationDatabase &quot;admin&quot;</code>去掉也没关系</p>
+<p>如果使用的用户名密码，是属于别的库，那么就必须要指定对应的库咯~把<code>&#39;admin&#39;</code>改成登陆用户对应的库即可</p>
+<h2 id="关闭MongoDB"><a href="#关闭MongoDB" class="headerlink" title="关闭MongoDB"></a>关闭MongoDB</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; use admin</span><br><span class="line">&gt; db.shutdownServer()</span><br></pre></td></tr></table></figure>
+<p>或者直接<code>kill</code>对应的Mongo进程</p>
+<p>先查询MongoDB的进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep mongo</span><br></pre></td></tr></table></figure></p>
+<p><code>killall</code>MongoDB的所有相关进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall mongo</span><br></pre></td></tr></table></figure></p>
+<p>有时候使用<code>kill</code>指定<code>mongo</code>对应的<code>pid</code>无法结束进程，<code>killall</code>执行后<code>mongo</code>进程还是依然存在，那么只好拿出杀手锏<code>killall -9 mongo</code></p>
+<p>不过<code>killall -9</code>是一个<strong>危险的命令</strong>，这个强大和危险的命令迫使进程在运行时突然终止，进程在结束后不能自我清理。危害是导致系统资源无法正常释放，一般不推荐使用，除非其他办法都无效。 </p>
+<h2 id="Linux开放指定端口"><a href="#Linux开放指定端口" class="headerlink" title="Linux开放指定端口"></a>Linux开放指定端口</h2><p>MongoDB在现在已经搭建完成，在Linux上已经可以正常使用咯</p>
+<p>我们的MongoDB加了账号密码后若是依然不放心安全性，可以将我们的端口进行变动，不使用默认的端口27017</p>
+<p>端口进行改变后，我们要记得在Linux上打开对应的端口，否则客户端是无法连接上我们的MongoDB服务器的</p>
+<p>打开端口有两种方法，一种是一次性生效，重启后需要重新打开端口。另外一种是永久生效，服务器重启也不影响端口的开放</p>
+<p>在这我将MongoDB的端口设为27888</p>
+<p>Linux重启后，端口需要重新开放：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp --dport 27888 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>永久生效：<br>在/etc/sysconfig/iptables文件内加上下面这句命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-A INPUT -p tcp -m tcp --dport 27888 -j ACCEPT</span><br><span class="line"></span><br><span class="line"># 重启iptables</span><br><span class="line">service iptables restart</span><br></pre></td></tr></table></figure></p>
+<p>如果<code>iptables</code>文件不存在，那我们直接创建一个就好了</p>
+<h2 id="服务器重启后自动打开MongoDB"><a href="#服务器重启后自动打开MongoDB" class="headerlink" title="服务器重启后自动打开MongoDB"></a>服务器重启后自动打开MongoDB</h2><p>有时候我们会重启服务器，但是难免有些东西会忘记打开，或者别的同事重启了服务器，他不知道怎么开</p>
+<p>所以我们需要配置成MongoDB自动打开，这样就能避免很多不必要的麻烦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/rc.d</span><br><span class="line"></span><br><span class="line"># 将MongoDB的启用方式追加到rc.local文件内</span><br><span class="line">echo &apos;/usr/local/mongoDB/bin/mongod --config /usr/local/mongoDB/conf/mongodb.conf&apos; &gt;&gt; rc.local</span><br></pre></td></tr></table></figure>
+<p>如果我们对MongoDB设置了自定义端口，可不要忘了端口也要配置成开机自动打开哦</p>
+<p>在这也写上Linux关机/重启的命令吧，可以验证下我们配置的重启生效的内容是否成功</p>
+<h2 id="Linux关机-重启"><a href="#Linux关机-重启" class="headerlink" title="Linux关机/重启"></a>Linux关机/重启</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">重启命令：    reboot（现在重新启动计算机）</span><br><span class="line"></span><br><span class="line">shutdown now（现在重新启动计算机）</span><br><span class="line"></span><br><span class="line">关机命令：shutdown -h now（立刻进行关机）</span><br><span class="line"></span><br><span class="line">    halt（立刻进行关机）</span><br><span class="line"></span><br><span class="line">    poweroff（立刻进行关机）</span><br></pre></td></tr></table></figure>
+<p>一般情况下我们连接Linux服务器都是使用远程连接，所以执行<code>reboot</code>即可，关机命令就别尝试了，知道这玩意就好了，毕竟……远程连接的情况下，关了后你咋开机呢？？？</p>
+<p><img src="http://ww1.sinaimg.cn/large/007OROpSgy1g5pbxlmfqbj306008f0t1.jpg" alt></p>
+<h2 id="微信扫码关注公众号「闹闹吃鱼」，每周都有好分享"><a href="#微信扫码关注公众号「闹闹吃鱼」，每周都有好分享" class="headerlink" title="微信扫码关注公众号「闹闹吃鱼」，每周都有好分享"></a>微信扫码关注公众号「闹闹吃鱼」，每周都有好分享</h2>
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">闹闹吃鱼</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/08/06/小公司的坑，能躲一个是一个！/" class="next-post btn btn-default" title="小公司的坑，能躲一个是一个！">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">小公司的坑，能躲一个是一个！</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xl6g1Q7kvS1x15q1q777Ig4V-gzGzoHsz',
+            appKey: 'uVeUIqfE7bmut1PrMA6VMVGo',
+            placeholder: '一起high呀~可以使用markdown语法哦！',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#部署开始"><span class="toc-text">部署开始</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建data目录"><span class="toc-text">创建data目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#config文件配置"><span class="toc-text">config文件配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#profile配置"><span class="toc-text">profile配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启动MongoDB"><span class="toc-text">启动MongoDB</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#创建用户并分配权限"><span class="toc-text">创建用户并分配权限</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#账户密码以及指定端口登陆mongoDB"><span class="toc-text">账户密码以及指定端口登陆mongoDB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭MongoDB"><span class="toc-text">关闭MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux开放指定端口"><span class="toc-text">Linux开放指定端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器重启后自动打开MongoDB"><span class="toc-text">服务器重启后自动打开MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux关机-重启"><span class="toc-text">Linux关机/重启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微信扫码关注公众号「闹闹吃鱼」，每周都有好分享"><span class="toc-text">微信扫码关注公众号「闹闹吃鱼」，每周都有好分享</span></a></li>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
